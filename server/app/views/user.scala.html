@@ -1,0 +1,17 @@
+@import play.api.libs.json.JsArray
+@import play.api.libs.json.JsString
+@import play.api.libs.json.JsValue
+@import play.api.Play.current
+@import play.api.i18n.Messages.Implicits._
+@import models._
+@import controllers._
+@import play.api.i18n._
+@import play.api.mvc._
+@import play.api.libs.json.Json
+@(title:String)(content:Html)
+@main(@title){
+
+@* User toolbar goes here *@
+
+@content
+}

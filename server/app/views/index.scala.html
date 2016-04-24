@@ -1,4 +1,4 @@
-@(userForm: Form[models.User])(implicit request: RequestHeader)
+@(userForm: Form[shared.User])(implicit request: RequestHeader)
 @import play.api.libs.json.JsArray
 @import play.api.Play.current
 @import play.api.i18n.Messages.Implicits._
@@ -8,8 +8,21 @@
 @import play.api.mvc._
 
 
-@main("Something goes here") {
+@main("User Login") {
 @* TODO Figure out layout of pages *@
 	@* Calls the scalajs script main in client package *@
- 	@playscalajs.html.scripts("client")
+ 	
+    @helper.form(action = routes.ApplicationController.login){
+        @helper.inputText(userForm("name")),
+        @helper.inputText(userForm("password"))
+        <button type="submit">Login</button>
+    }
+    
+    @helper.form(action = routes.ApplicationController.addUser){
+        @helper.inputText(userForm("name")),
+        @helper.inputText(userForm("password"))
+        <button type="submit">Register</button>
+    }
+ 	
+ 	
 }
