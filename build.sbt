@@ -7,8 +7,6 @@ version := "0.0.0"
 lazy val clients = Seq(client)
 lazy val scalaV = "2.11.7"
 
-lazy val root = (project.in file(".")).enablePlugins(SbtWeb)
-
 lazy val server = (project in file("server")).settings(
   scalaVersion := scalaV,
   scalaJSProjects := clients,
@@ -51,3 +49,6 @@ EclipseKeys.skipParents in ThisBuild := false
 
 onLoad in Global := (Command.process("project server", _: State)) compose (onLoad in Global).value
 
+
+
+fork in run := false

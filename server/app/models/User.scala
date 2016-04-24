@@ -9,7 +9,7 @@ import slick.driver.JdbcProfile
 import slick.driver.MySQLDriver.api._
 import scala.concurrent.ExecutionContext.Implicits.global
 
-import {shared.User => User} //XXX I think this is how I should do this.
+import shared.User //XXX I think this is how I should do this.
 
 
 
