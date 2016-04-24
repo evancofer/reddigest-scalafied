@@ -1,0 +1,65 @@
+New log file opened at Sun Apr 24 15:01:39 CDT 2016 by 18593@ecofer-Aspire-V3-572G
+Sending msg to client activator-bd817b14-f9eb-4fd8-9810-1bdec5667deb: DetachedLogEvent(LogMessage(debug,sbt client logs are in: /home/ecofer/git/reddigest-scalafied/.sbtserver/connections/activator-bd817b14-f9eb-4fd8-9810-1bdec5667deb.log))
+Sending msg to client activator-bd817b14-f9eb-4fd8-9810-1bdec5667deb: DetachedLogEvent(LogMessage(debug,sbt server socket logs are in: /home/ecofer/git/reddigest-scalafied/.sbtserver/connections/master.log))
+Sending msg to client activator-bd817b14-f9eb-4fd8-9810-1bdec5667deb: DetachedLogEvent(LogMessage(debug,sbt general server logs are in: /home/ecofer/git/reddigest-scalafied/.sbtserver/master.log))
+Reading next message from client.
+Got request: ListenToEvents()
+Reading next message from client.
+Sending msg to client activator-bd817b14-f9eb-4fd8-9810-1bdec5667deb: DetachedLogEvent(LogMessage(debug,> --initialize))
+Sending msg to client activator-bd817b14-f9eb-4fd8-9810-1bdec5667deb: (3,ReceivedResponse())
+Got request: ListenToBuildChange()
+Reading next message from client.
+Got request: SendSyntheticBuildChanged()
+Reading next message from client.
+Got request: KeyLookupRequest(discoveredMainClasses)
+Reading next message from client.
+Got request: KeyLookupRequest(mainClass)
+Reading next message from client.
+Sending msg to client activator-bd817b14-f9eb-4fd8-9810-1bdec5667deb: DetachedLogEvent(LogMessage(debug,> initialize))
+Sending msg to client activator-bd817b14-f9eb-4fd8-9810-1bdec5667deb: DetachedLogEvent(LogMessage(debug,> onFailure load-failed))
+Sending msg to client activator-bd817b14-f9eb-4fd8-9810-1bdec5667deb: DetachedLogEvent(LogMessage(debug,> boot))
+Sending msg to client activator-bd817b14-f9eb-4fd8-9810-1bdec5667deb: DetachedLogEvent(LogMessage(debug,> reload))
+Sending msg to client activator-bd817b14-f9eb-4fd8-9810-1bdec5667deb: DetachedLogEvent(LogMessage(debug,[Loading] Scanning directory /home/ecofer/git/reddigest-scalafied/project))
+Sending msg to client activator-bd817b14-f9eb-4fd8-9810-1bdec5667deb: DetachedLogEvent(LogMessage(debug,[Loading] Found non-root projects ))
+Sending msg to client activator-bd817b14-f9eb-4fd8-9810-1bdec5667deb: DetachedLogEvent(LogMessage(debug,[Loading] Done in /home/ecofer/git/reddigest-scalafied/project, returning: ()))
+Sending msg to client activator-bd817b14-f9eb-4fd8-9810-1bdec5667deb: DetachedLogEvent(LogMessage(debug,deducing auto plugins based on known facts Set(Atom(sbt.plugins.CorePlugin)) and clauses Clauses(List(Clause(Atom(sbt.plugins.JvmPlugin),Set(Atom(sbt.plugins.IvyPlugin))), Clause(Atom(sbt.plugins.JUnitXmlReportPlugin),Set(Atom(sbt.plugins.JvmPlugin))), Clause(Atom(sbt.plugins.CorePlugin),Set(Atom(sbt.plugins.IvyPlugin))), Clause(Atom(sbt.plugins.IvyPlugin),Set(Atom(sbt.plugins.JvmPlugin))), Clause(Atom(sbt.plugins.JvmPlugin),Set(Atom(sbt.plugins.JUnitXmlReportPlugin)))))))
+Sending msg to client activator-bd817b14-f9eb-4fd8-9810-1bdec5667deb: DetachedLogEvent(LogMessage(debug,  :: deduced result: Matched(sbt.plugins.CorePlugin,sbt.plugins.IvyPlugin,sbt.plugins.JvmPlugin,sbt.plugins.JUnitXmlReportPlugin)))
+Sending msg to client activator-bd817b14-f9eb-4fd8-9810-1bdec5667deb: DetachedLogEvent(LogMessage(debug,sorting: ns: List(sbt.plugins.CorePlugin, sbt.plugins.IvyPlugin, sbt.plugins.JvmPlugin, sbt.plugins.JUnitXmlReportPlugin)))
+Sending msg to client activator-bd817b14-f9eb-4fd8-9810-1bdec5667deb: DetachedLogEvent(LogMessage(debug,  :: sorting:: found: List(sbt.plugins.CorePlugin) not found List(sbt.plugins.IvyPlugin, sbt.plugins.JvmPlugin, sbt.plugins.JUnitXmlReportPlugin)))
+Sending msg to client activator-bd817b14-f9eb-4fd8-9810-1bdec5667deb: DetachedLogEvent(LogMessage(debug,  :: sorting:: found: List(sbt.plugins.CorePlugin, sbt.plugins.IvyPlugin) not found List(sbt.plugins.JvmPlugin, sbt.plugins.JUnitXmlReportPlugin)))
+Sending msg to client activator-bd817b14-f9eb-4fd8-9810-1bdec5667deb: DetachedLogEvent(LogMessage(debug,  :: sorting:: found: List(sbt.plugins.CorePlugin, sbt.plugins.IvyPlugin, sbt.plugins.JvmPlugin) not found List(sbt.plugins.JUnitXmlReportPlugin)))
+Sending msg to client activator-bd817b14-f9eb-4fd8-9810-1bdec5667deb: DetachedLogEvent(LogMessage(debug,  :: sorting:: found: List(sbt.plugins.CorePlugin, sbt.plugins.IvyPlugin, sbt.plugins.JvmPlugin, sbt.plugins.JUnitXmlReportPlugin) not found List()))
+Sending msg to client activator-bd817b14-f9eb-4fd8-9810-1bdec5667deb: DetachedLogEvent(LogMessage(debug,  :: sorted deduced result: List(sbt.plugins.CorePlugin, sbt.plugins.IvyPlugin, sbt.plugins.JvmPlugin, sbt.plugins.JUnitXmlReportPlugin)))
+Sending msg to client activator-bd817b14-f9eb-4fd8-9810-1bdec5667deb: DetachedLogEvent(LogMessage(debug,[Loading] Done in /home/ecofer/git/reddigest-scalafied/project, returning: (reddigest-scalafied-build)))
+Sending msg to client activator-bd817b14-f9eb-4fd8-9810-1bdec5667deb: DetachedLogEvent(LogMessage(info,Loading project definition from /home/ecofer/git/reddigest-scalafied/project))
+Sending msg to client activator-bd817b14-f9eb-4fd8-9810-1bdec5667deb: DetachedLogEvent(LogMessage(debug,Running task... Cancel: sbt.TaskCancellationStrategy$Null$@42e5952c, check cycles: false))
+Sending msg to client activator-bd817b14-f9eb-4fd8-9810-1bdec5667deb: DetachedLogEvent(LogMessage(debug,
+Initial source changes: 
+	removed:Set()
+	added: Set()
+	modified: Set()
+Removed products: Set()
+External API changes: API Changes: Set()
+Modified binary dependencies: Set()
+Initial directly invalidated sources: Set()
+
+Sources indirectly invalidated by:
+	product: Set()
+	binary dep: Set()
+	external source: Set()))
+Sending msg to client activator-bd817b14-f9eb-4fd8-9810-1bdec5667deb: DetachedLogEvent(LogMessage(debug,All initially invalidated sources: Set()
+))
+Sending msg to client activator-bd817b14-f9eb-4fd8-9810-1bdec5667deb: DetachedLogEvent(LogMessage(debug,Copy resource mappings: 
+	))
+Sending msg to client activator-bd817b14-f9eb-4fd8-9810-1bdec5667deb: DetachedLogEvent(LogMessage(debug,[Loading] Scanning directory /home/ecofer/git/reddigest-scalafied))
+Sending msg to client activator-bd817b14-f9eb-4fd8-9810-1bdec5667deb: DetachedLogEvent(LogStdErr(/home/ecofer/git/reddigest-scalafied/build.sbt:10: error: missing arguments for method in in trait Project;))
+Sending msg to client activator-bd817b14-f9eb-4fd8-9810-1bdec5667deb: DetachedLogEvent(LogStdErr(follow this method with `_' if you want to treat it as a partially applied function))
+Sending msg to client activator-bd817b14-f9eb-4fd8-9810-1bdec5667deb: DetachedLogEvent(LogStdErr(lazy val root = (project.in file(".")).enablePlugins(SbtWeb)))
+Sending msg to client activator-bd817b14-f9eb-4fd8-9810-1bdec5667deb: DetachedLogEvent(LogStdErr(                         ^))
+Sending msg to client activator-bd817b14-f9eb-4fd8-9810-1bdec5667deb: DetachedLogEvent(LogTrace(EvalException,Type error in expression))
+Sending msg to client activator-bd817b14-f9eb-4fd8-9810-1bdec5667deb: DetachedLogEvent(LogMessage(error,sbt.compiler.EvalException: Type error in expression))
+Sending msg to client activator-bd817b14-f9eb-4fd8-9810-1bdec5667deb: DetachedLogEvent(LogMessage(error,Use 'last' for the full log.))
+Sending msg to client activator-bd817b14-f9eb-4fd8-9810-1bdec5667deb: DetachedLogEvent(LogMessage(debug,> load-failed))
+Sending msg to client activator-bd817b14-f9eb-4fd8-9810-1bdec5667deb: DetachedLogEvent(LogMessage(error,Failed to load project.))
+Sending msg to client activator-bd817b14-f9eb-4fd8-9810-1bdec5667deb: BuildFailedToLoad()
+Sending msg to client activator-bd817b14-f9eb-4fd8-9810-1bdec5667deb: DetachedLogEvent(LogMessage(debug,> server-wait-for-reboot))

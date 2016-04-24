@@ -1,0 +1,7 @@
+New log file opened at Sun Apr 24 15:01:39 CDT 2016 by 18593@ecofer-Aspire-V3-572G
+Taking next connection to: 37907
+New client attempting to connect on port: 60432-37907
+  Address = /127.0.1.1:37907
+This client on port 60432 has uuid bd817b14-f9eb-4fd8-9810-1bdec5667deb configName activator humanReadableName Activator protocolVersion 3 featureTags Vector()
+Connected Clients: activator-bd817b14-f9eb-4fd8-9810-1bdec5667deb
+Taking next connection to: 37907
