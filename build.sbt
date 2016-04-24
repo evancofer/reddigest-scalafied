@@ -52,3 +52,6 @@ onLoad in Global := (Command.process("project server", _: State)) compose (onLoa
 
 
 fork in run := false
+
+
+fork in run := true
