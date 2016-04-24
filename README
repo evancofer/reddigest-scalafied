@@ -1,1 +1,0 @@
- A rewrite and revamp of <a href="https://github.com/tinathefatwhale/reddigest">reddigest</a> in Scala using <a href="https://github.com/playframework/playframework">Play</a> and <a href="https://github.com/scala-js/scala-js">Scala.js</a>
