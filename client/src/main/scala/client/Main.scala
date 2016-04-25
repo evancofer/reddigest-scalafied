@@ -27,7 +27,10 @@ object Main extends JSApp {
 	@JSExport
 	def main():Unit = {
 	
-		//TODO 
+	/*
+	 * Immediately download links from reddit
+	 * Do ajax call to server whenever links are exited out of to tell server we've seen that link.
+	 */
 	
 	}
 }
