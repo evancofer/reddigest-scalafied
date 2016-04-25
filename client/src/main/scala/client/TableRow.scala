@@ -1,8 +1,29 @@
 package client
 
+import org.scalajs.dom
+import org.scalajs.dom.html
+import scala.scalajs.js
+import scala.scalajs.js.annotation.JSExport
+import scala.scalajs.js.JSApp
+import scala.collection.mutable
+import scala.collection.mutable.MutableList
+import scala.scalajs.js.annotation.JSExport
+import org.scalajs.dom
+import org.scalajs.dom.html
+import dom.html
+import dom.ext._
+import scala.scalajs.js.timers._
+import dom.ext.Ajax
+import scala.scalajs.js.JSON
+import upickle.default._
+import scala.concurrent.ExecutionContext.Implicits.global
 import shared.Link
 
-class TableRow(val link:shared.Link){
+class TableRow(var link:shared.Link, val rowNumber:Int){
+  
+  def setLink(newLink:shared.Link):Unit = {
+    link = newLink
+  }
   
   def articleLink:String = {
     link.data.url.replace("""\/""", """/""")
@@ -45,7 +66,7 @@ class TableRow(val link:shared.Link){
          """<div class="col-md-12">"""+{
            """div id="sub_row" class="row">"""+{
              """<div class="col-sm-12"  style="font-size: 16px; vertical-align: middle;">"""+{
-               """<a id="link_seen_button" href="javascript:remove_row(0)">"""+{
+               """<a id="link_seen_button" href="javascript:Table.refreshRow("""+rowNumber+""")">"""+{
                  """&nbsp;<span class="glyphicon glyphicon-remove-sign" style="color: white;"></span>&nbsp;"""
                  }+"""</a>"""+{
                    """<a id="the_link" href=""""+this.articleLink+"""">"""+this.articleTitle+"""</a>"""+"""&nbsp;<a href=http://""""+this.articleSiteName+"""" style="font-size: 12px;">["""+this.articleSiteName+"""]</a>""" 
@@ -66,19 +87,3 @@ class TableRow(val link:shared.Link){
     }+"""</tr>"""
   }
 }
-
-
-/*
-
-
-<body>
-<nav class="navbar navbar-fixed-top">
-    <div><button class="btn btn-warning pull-right" style="margin-right: 1%;" onclick="logout()">Log Out</button></div>
-</nav>
-<div class="row">
-<div class="col-md-12" style="background color: #F0FFFF; margin-top: 3%">
-
-
-<div id="link_table">
-
-*/

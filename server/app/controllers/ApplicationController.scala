@@ -38,5 +38,9 @@ class ApplicationController extends Controller {
       }
     }
   }
+  
+  def logout = Action.async { implicit request =>
+    ???
+  }
 
 }

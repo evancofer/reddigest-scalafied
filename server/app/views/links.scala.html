@@ -8,11 +8,8 @@
 @import play.api.i18n._
 @import play.api.mvc._
 @import play.api.libs.json.Json
-@user("Fresh Links"){
-	<table id="linkTable" class="table table-striped">
-	</table>
-	
-	<script type="text/javascript" defer>
-		@playscalajs.html.scripts("client") @* This should run the main, which does an ajax call to get the links *@
-	</script>
+
+@user("Links"){
+	<table id="linkTable" class="table table-striped"></table>
+	@playscalajs.html.scripts("client")
 }
