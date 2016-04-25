@@ -38,9 +38,19 @@ class ApplicationController extends Controller {
       }
     }
   }
+  /*
+   * checkLink should check if a new link from user is already in the db. Maybe do it like 25 links at a time?
+   */
   
-  def logout = Action.async { implicit request =>
-    ???
-  }
+  def logout = ???
+  
+  def storeLink = ???
+  
+  def login = ???
 
+  def addUser = ???
+  
+  def removeUser = ???
+  
+  def checkLink = ???
 }
