@@ -1,3 +1,3 @@
 package shared
 
-case class Link()//TODO
+case class Link()//TODOt
