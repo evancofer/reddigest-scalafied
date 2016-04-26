@@ -24,6 +24,8 @@ class UserTableDef(tag: Tag) extends Table[User](tag, "user"){
 object Users {
 	lazy val users = new TableQuery(tag => new UserTableDef(tag))
 
+	
+//TODO: Add exception handling to all of the database queries.
   def addUser(user: shared.User):Future[Option[shared.User]] = {
     getUser(user).map{
        _ match {
