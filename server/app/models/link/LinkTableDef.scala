@@ -22,6 +22,6 @@ class LinkTableDef(tag: Tag) extends Table[Link](tag, "link"){
   def num_comments = column[Int]("num_comments")
   def permalink = column[String]("permalink")
 	
-	override def * = 
-	(userName, url, title, domain, author, subreddit, num_comments, permalink) <> (Link.tupled, Link.unapply)
+    override def * = 
+    (userName, url, title, domain, author, subreddit, num_comments, permalink) <> (Link.tupled, Link.unapply)
 }
