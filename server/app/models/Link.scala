@@ -20,6 +20,7 @@ implicit val linkWrites = new Writes[shared.Link] {
   )
 }
 
+//TODO: May need to revamp this method.
 implicit val linkReads: Reads[shared.Link] = (
   (JsPath \ "userName").read[String] and
   (JsPath \ "data").read[shared.LinkData]
@@ -33,6 +34,8 @@ class LinkTableDef(tag: Tag) extends Table[Link](tag, "link"){
 }
 
 object Links {
+  //TODO: Determine how we're going to compare links when fetching from the database.
+  
 	lazy val links = new TableQuery(tag => new LinkTableDef(tag))
 	
   def getLink(link: shared.Link):Future[Option[shared.Link]] = {

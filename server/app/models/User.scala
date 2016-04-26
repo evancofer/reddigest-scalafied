@@ -25,15 +25,42 @@ object Users {
 	lazy val users = new TableQuery(tag => new UserTableDef(tag))
 
   def addUser(user: shared.User):Future[Option[shared.User]] = {
-    ???
+    getUser(user).map{
+       _ match {
+         case Some(oldUser) => {
+           None
+         }
+         case None => {
+           Database.dbConfig.db.run(users += user)
+           Some(user)
+         }
+       }
+    }
+  }
+	
+  def getUser(user: shared.User):Future[Option[shared.User]] = {
+    Database.dbConfig.db.run(
+        users.filter( aUser =>
+            _ === user
+        ).result.headOption
+    )
   }
   
   def removeUser(user: shared.User):Future[Option[shared.User]] = {
-    ???
+//TODO: Make sure this is the right way to go about remove users from the database, seems unsafe but maybe not?
+     Database.dbConfig.db.run(
+         users.filter(
+             _ === user
+         ).delete  
+     )
+ //TODO: TBH could maybe get away without this return? An exception on failur is definitely not the right answer either however.
+     Database.dbConfig.db.run(
+         users.filter(
+             _ === user 
+         ).result.headOption
+     )
   }
   
-  def getUser(user: shared.User):Future[Option[shared.User]] = {
-    ???
-  }
+
 
 }

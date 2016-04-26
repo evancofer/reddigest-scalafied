@@ -97,11 +97,11 @@ class ApplicationController extends Controller {
           data => {
               UserService.removeUser(User(data.name, data.password)).map{
                  _ match {
-                  case Some(user) => {
-                    println("Deleting user: "+user.name)
+                  case None => {
+                    println("Deleting user: "+data.name)
                     Redirect(routes.ApplicationController.index).withNewSession
                   }
-                  case None => {
+                  case Some(user) => {
                     println("Could not delete user: "+user.name)
                     ??? //TODO: Make a page for when...how do we even get here?
                   }
