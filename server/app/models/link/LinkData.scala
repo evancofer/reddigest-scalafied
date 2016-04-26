@@ -18,7 +18,11 @@ import shared._
 
 case class LinkData( url:String,  title:String,  domain:String,  author:String,  subreddit:String,  num_comments:Int,  permalink:String) extends LinkDataLike{
      
-  
+
+}
+
+object LinkData {
+    
     implicit val linkDataWrites : Writes[LinkData] = (
       (JsPath \ "url").write[String] and
       (JsPath \ "title").write[String] and
@@ -39,6 +43,5 @@ case class LinkData( url:String,  title:String,  domain:String,  author:String, 
       (JsPath \ "num_comments").read[Int] and
       (JsPath \ "permalink").read[String]
     )(LinkData.apply _)
-    
     
 }

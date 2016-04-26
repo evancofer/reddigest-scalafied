@@ -16,11 +16,11 @@ class LinkTableDef(tag: Tag) extends Table[Link](tag, "link"){
   def userName = column[String]("userName")
   def url = column[String]("url")
   def title = column[String]("title")
-  val domain = column[String]("domain")
-  val author = column[String]("author")
-  val subreddit = column[String]("subreddit")
-  val num_comments = column[Int]("num_comments")
-  val permalink = column[String]("permalink")
+  def domain = column[String]("domain")
+  def author = column[String]("author")
+  def subreddit = column[String]("subreddit")
+  def num_comments = column[Int]("num_comments")
+  def permalink = column[String]("permalink")
 	
 	override def * = 
 	(userName, url, title, domain, author, subreddit, num_comments, permalink) <> (Link.tupled, Link.unapply)

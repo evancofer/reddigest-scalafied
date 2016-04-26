@@ -10,6 +10,8 @@ import play.api.libs.json.JsArray
 import play.api.libs.json.JsValue
 import play.api.libs.json.JsString
 import scala.concurrent.Await
+import play.api.data.validation.ValidationError
+import play.api.libs.json._
 
 import services.UserService
 import services.LinkService
@@ -115,21 +117,27 @@ class ApplicationController extends Controller {
         )
     }}
   
+  
 //TODO: make it so that we can check like 25 links at a time, so that way we dont have to destroy the server
-  def getLink = Action { implicit request => {
+  def getLink = Action.async { implicit request => {
     request.session.get("user") match {
-      case None => Ok("woops") //What do we do if this happens?
+      case None => Future{Ok("woops")} //What do we do if this happens?
       case Some(userName) => {
          request.body.asJson match {
             case Some(json) => {
-                LinkService.getLink(Json.fromJson[Link](json)).map(
-                    _ match {
-                        case Some(user) => Ok("Not a new link")
-                        case None => Ok("New link")
+                Json.fromJson[Link](json) match {
+                    case link: JsSuccess[Link] => {
+                        LinkService.getLink(link.get).map(
+                            _ match {
+                                case Some(user) => Ok("Not a new link")
+                                case None => Ok("New link")
+                            }
+                        )
                     }
-                )
+                    case _ => Future{Ok("TODO")}
+                }
             }
-            case None => Ok("whoops")
+            case None => Future{Ok("whoops")}
          }
       }
     }
@@ -142,7 +150,13 @@ class ApplicationController extends Controller {
       case Some(userName) => {
          request.body.asJson match {
             case Some(json) => {
-                LinkService.addLink(Json.fromJson[Link](json))
+                Json.fromJson[Link](json) match {
+                    case link: JsSuccess[Link] =>{
+                        LinkService.addLink(link.get)
+                        Ok("Todo")
+                    }
+                    case _ => Ok("Todo")
+                }
             }
             case None => Ok("whoops")
          }

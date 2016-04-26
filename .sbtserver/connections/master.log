@@ -1,13 +1,13 @@
-New log file opened at Tue Apr 26 14:07:21 CDT 2016 by 16358@ecofer-Aspire-V3-572G
-Taking next connection to: 42088
-New client attempting to connect on port: 52544-42088
-  Address = /127.0.1.1:42088
-This client on port 52544 has uuid de07da3b-d7c9-4579-8032-5dcd9e2dfda8 configName activator humanReadableName Activator protocolVersion 3 featureTags Vector()
-Connected Clients: activator-de07da3b-d7c9-4579-8032-5dcd9e2dfda8
-Taking next connection to: 42088
-New client attempting to connect on port: 52546-42088
-  Address = /127.0.1.1:42088
-Handshake exception on socket: 52546
+New log file opened at Tue Apr 26 14:31:41 CDT 2016 by 22748@ecofer-Aspire-V3-572G
+Taking next connection to: 41013
+New client attempting to connect on port: 38784-41013
+  Address = /127.0.1.1:41013
+This client on port 38784 has uuid e1d0c141-bcfe-4bc8-abd1-ad10790934d7 configName activator humanReadableName Activator protocolVersion 3 featureTags Vector()
+Connected Clients: activator-e1d0c141-bcfe-4bc8-abd1-ad10790934d7
+Taking next connection to: 41013
+New client attempting to connect on port: 38786-41013
+  Address = /127.0.1.1:41013
+Handshake exception on socket: 38786
 sbt.impl.ipc.HandshakeException: Unable to perform handshake
 	at sbt.impl.ipc.Peer.handshake(IPC.scala:46)
 	at sbt.impl.ipc.MultiClientServer.<init>(IPC.scala:150)
@@ -17,24 +17,57 @@ Caused by: java.io.EOFException
 	at sbt.impl.ipc.Peer.receive(IPC.scala:95)
 	at sbt.impl.ipc.Peer.handshake(IPC.scala:49)
 	... 2 more
-Taking next connection to: 42088
-New client attempting to connect on port: 52548-42088
-  Address = /127.0.1.1:42088
-This client on port 52548 has uuid b76297bd-1dea-481b-a30c-547343b82fbc configName activator humanReadableName Activator protocolVersion 3 featureTags Vector()
-Connected Clients: activator-de07da3b-d7c9-4579-8032-5dcd9e2dfda8, activator-b76297bd-1dea-481b-a30c-547343b82fbc
-Taking next connection to: 42088
+Taking next connection to: 41013
+New client attempting to connect on port: 38788-41013
+  Address = /127.0.1.1:41013
+This client on port 38788 has uuid c68856b1-c394-4703-a18f-48b436d1d2cc configName activator humanReadableName Activator protocolVersion 3 featureTags Vector()
+Connected Clients: activator-e1d0c141-bcfe-4bc8-abd1-ad10790934d7, activator-c68856b1-c394-4703-a18f-48b436d1d2cc
+Taking next connection to: 41013
 Checking to see if clients are empty...
 We have 1 non-daemon clients, continuing serving connections.
-Taking next connection to: 42088
+Taking next connection to: 41013
 Checking to see if clients are empty...
 We have 1 non-daemon clients, continuing serving connections.
-Taking next connection to: 42088
+Taking next connection to: 41013
 Checking to see if clients are empty...
 We have 1 non-daemon clients, continuing serving connections.
-Taking next connection to: 42088
+Taking next connection to: 41013
 Checking to see if clients are empty...
 We have 1 non-daemon clients, continuing serving connections.
-Taking next connection to: 42088
+Taking next connection to: 41013
 Checking to see if clients are empty...
 We have 1 non-daemon clients, continuing serving connections.
-Taking next connection to: 42088
+Taking next connection to: 41013
+Checking to see if clients are empty...
+We have 1 non-daemon clients, continuing serving connections.
+Taking next connection to: 41013
+Checking to see if clients are empty...
+We have 1 non-daemon clients, continuing serving connections.
+Taking next connection to: 41013
+Checking to see if clients are empty...
+We have 1 non-daemon clients, continuing serving connections.
+Taking next connection to: 41013
+Checking to see if clients are empty...
+We have 1 non-daemon clients, continuing serving connections.
+Taking next connection to: 41013
+Checking to see if clients are empty...
+We have 1 non-daemon clients, continuing serving connections.
+Taking next connection to: 41013
+Checking to see if clients are empty...
+We have 1 non-daemon clients, continuing serving connections.
+Taking next connection to: 41013
+Checking to see if clients are empty...
+We have 1 non-daemon clients, continuing serving connections.
+Taking next connection to: 41013
+Checking to see if clients are empty...
+We have 1 non-daemon clients, continuing serving connections.
+Taking next connection to: 41013
+Checking to see if clients are empty...
+We have 1 non-daemon clients, continuing serving connections.
+Taking next connection to: 41013
+Checking to see if clients are empty...
+We have 1 non-daemon clients, continuing serving connections.
+Taking next connection to: 41013
+Checking to see if clients are empty...
+We have 1 non-daemon clients, continuing serving connections.
+Taking next connection to: 41013
