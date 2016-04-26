@@ -15,11 +15,13 @@ import shared._
 
 implicit val linkWrites = new Writes[shared.Link] {
   def writes(link: shared.Link) = Json.obj(
+      "userName" -> link.userName,
       "data" -> Json.toJson(link.data)
   )
 }
 
 implicit val linkReads: Reads[shared.Link] = (
+  (JsPath \ "userName").read[String] and
   (JsPath \ "data").read[shared.LinkData]
 )(Link.apply _)
 
@@ -32,5 +34,13 @@ class LinkTableDef(tag: Tag) extends Table[Link](tag, "link"){
 
 object Links {
 	lazy val links = new TableQuery(tag => new LinkTableDef(tag))
+	
+  def getLink(link: shared.Link):Future[Option[shared.Link]] = {
+    ???
+  }
+
+  def addLink(link: shared.Link):Unit = {
+    ???
+  }
 }
 

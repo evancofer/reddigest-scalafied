@@ -24,15 +24,16 @@ class UserTableDef(tag: Tag) extends Table[User](tag, "user"){
 object Users {
 	lazy val users = new TableQuery(tag => new UserTableDef(tag))
 
-
-/*
-TODO:	Need to update this stuff:
-    
-	def getUserByName(userName: String) : Future[Option[User]]
-	
-    def getUser( user: User): Future[Option[User]] 
-    
-    def addUser(user: User):Future[Option[User]]
-*/
+  def addUser(user: shared.User):Future[Option[shared.User]] = {
+    ???
+  }
+  
+  def removeUser(user: shared.User):Future[Option[shared.User]] = {
+    ???
+  }
+  
+  def getUser(user: shared.User):Future[Option[shared.User]] = {
+    ???
+  }
 
 }

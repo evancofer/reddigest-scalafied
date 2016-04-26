@@ -17,6 +17,7 @@ import shared.User
 
 class ApplicationController extends Controller {
   
+  
   def index = Action.async { implicit request => {
       println("index")
       request.session.get("user") match {
@@ -110,12 +111,37 @@ class ApplicationController extends Controller {
         )
     }}
   
+//TODO Tbh might want to check out http://bsonspec.org/ and gzip our Ajax stuff
+// client side so we can check a bunch of links at once, then with bitstring?
+  that are good.
+  def getLink = Action { implicit request => {
+    request.session.get("user") match {
+      case None => TODO //What do we do if this happens?
+      case Some(userName) => {
+        LinkService.getLink(
+          Link(userName, (request.body.asJson() \ "data").as[shared.LinkData])
+        ).map(
+            _ match {
+//TODO: make it so that we can check like 25 links at a time, so that way we dont have to destroy the server
+              case Some(user) => Ok("Not a new link")
+              case None => Ok("New link")
+            }
+        )  
+      }
+    }
+  }}
   
-  def checkLink = ???
+
+  def addLink = Action { implicit request => {
+    request.session.get("user") match {
+      case None => TODO //What do we do if this happens?
+      case Some(userName) => {
+        LinkService.addLink(
+          Link(userName, (request.body.asJson() \ "data").as[shared.LinkData])
+        )
+      }
+    }
+  }}
   
   
-  def storeLink = ???
-    /*
-   * checkLink should check if a new link from user is already in the db. Maybe do it like 25 links at a time?
-   */
 }
