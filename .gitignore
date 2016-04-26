@@ -23,7 +23,6 @@ application.conf
 .cache-main
 .cache-tests
 
-
 #For eclipse stuff only I believe!
 .target
 .recommenders

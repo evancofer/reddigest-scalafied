@@ -20,22 +20,14 @@ import scala.concurrent.ExecutionContext.Implicits.global
 
 import shared._
 
-//TODO Keep a link source object that allows us to do the buffered checks and only pull out one at a time.
 
-class TableRow(var link:shared.Link, val rowNumber:Int){
-  //TODO Keep a reference to the dom eleemnt in here.
-  private val html:HTMLTableRowElement = ???//TODO no idea if this is even the correct type for now...
-  
-  def render():Unit = {
-    //TODO initial rendering
-  }
+
+class TableRow(private var link:shared.Link, val rowNumber:Int, private val html:HTMLTableRowElement){
+  //TODO on construction automatically add content to the DOM element.
   
   def refresh():Unit = {
-    //TODO get a new link from somewhere
-  }
-  
-  def setLink(newLink:shared.Link):Unit = {
-    link = newLink
+    link = TableRow.load()//TODO take the new link and do something with it.
+    //TODO re-render parts of the DOM that actually need changing.
   }
   
   def articleLink:String = {
@@ -75,11 +67,11 @@ class TableRow(var link:shared.Link, val rowNumber:Int){
   }
   
   def asHtml:String = {
-    """<tr>"""+{
+//    """<tr>"""+{
          """<div class="col-md-12">"""+{
            """div id="sub_row" class="row">"""+{
              """<div class="col-sm-12"  style="font-size: 16px; vertical-align: middle;">"""+{
-               """<a id="link_seen_button" href="javascript:Table.refreshRow("""+rowNumber+""")">"""+{
+               """<a id="link_seen_button" href="javascript:client.TableRow().refreshRow("""+rowNumber+""")">"""+{
                  """&nbsp;<span class="glyphicon glyphicon-remove-sign" style="color: white;"></span>&nbsp;"""
                  }+"""</a>"""+{
                    """<a id="the_link" href=""""+this.articleLink+"""">"""+this.articleTitle+"""</a>"""+"""&nbsp;<a href=http://""""+this.articleSiteName+"""" style="font-size: 12px;">["""+this.articleSiteName+"""]</a>""" 
@@ -97,6 +89,39 @@ class TableRow(var link:shared.Link, val rowNumber:Int){
                   }
             }+"""</div>""" 
           }+"""</div>"""
-    }+"""</tr>"""
+//    }+"""</tr>"""
   }
 }
+
+	/*
+	 * Immediately download links from reddit
+	 * Do ajax call to server whenever links are exited out of to tell server we've seen that link.
+	 */
+@JSExport
+object TableRow {
+  //TODO Keep a link source object that allows us to do the buffered checks and only pull out one at a time?
+  
+  //TODO: Create the table in the dom with the rows, and pass the row references to new tablerows
+  val rows:Array[TableRow](25)
+  
+  
+  def load(n:Int):Seq[shared.Link] = {//TODO loads a new set of links from reddit that has n links in it?
+    
+  }
+  
+  def load():shared.Link = {
+    //Just loads a single link.
+  }
+
+  
+  @JSExport
+  def refreshRow(n:Int):Unit = {//TODO Make it so this can also take a javascript dynamic and cast to int!
+    if(n < 0 || n >= rows.size){
+      return 
+    } else {
+      this.rows(n).refresh()
+    }
+  }
+  
+}
+//TODO: Will we keep a "seen" array on local storage? Think more about this, probably need to build an object for it, or modify the TableRow companion object.
