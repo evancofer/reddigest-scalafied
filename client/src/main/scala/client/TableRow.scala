@@ -17,9 +17,22 @@ import dom.ext.Ajax
 import scala.scalajs.js.JSON
 import upickle.default._
 import scala.concurrent.ExecutionContext.Implicits.global
-import shared.Link
+
+import shared._
+
+//TODO Keep a link source object that allows us to do the buffered checks and only pull out one at a time.
 
 class TableRow(var link:shared.Link, val rowNumber:Int){
+  //TODO Keep a reference to the dom eleemnt in here.
+  private val html:HTMLTableRowElement = ???//TODO no idea if this is even the correct type for now...
+  
+  def render():Unit = {
+    //TODO initial rendering
+  }
+  
+  def refresh():Unit = {
+    //TODO get a new link from somewhere
+  }
   
   def setLink(newLink:shared.Link):Unit = {
     link = newLink

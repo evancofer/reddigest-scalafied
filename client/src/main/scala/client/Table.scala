@@ -27,23 +27,17 @@ import shared.Link
 
 @JSExport
 object Table { //DOES THIS HAVE TO EXTEND JSAPP?
-  val domTarget:???//TODO Dom element for where we will place the table.
-  
+  //TODO: Create the table in the dom, and pass in the row objects to each row.
   val rows:Array[TableRow](25)
   
   //TODO array holding references to the html content of the individual rows in the DOM, so we can access/change them easily.
   
+  
+  @JSExport
   def load(n:Int):shared.Link = {//TODO loads a new set of links from reddit that has n links in it.
     
   }
-  
-  @JSExport
-  def render():Unit = {//TODO Creates the initial table
-    /*
-			Call load(rowCount)
-			Somehow get the stuff loaded in and put it in the table.	
-     */
-  }
+
   
   @JSExport
   def refreshRow(n:Int):Unit = {//TODO Make it so this can also take a javascript dynamic and cast to int.
@@ -54,12 +48,6 @@ object Table { //DOES THIS HAVE TO EXTEND JSAPP?
           this.load(1)
       )
       
-    /*
-     Get link that we need to get rid of, send ajax to server to add it to seen list.
-     Get a new link from reddit.
-     Set existing link to be that new link.
-     Go to DOM object for that link, and change SOME of the parameters to change the link, dont just refresh whole thing.
-     */
     }
   }
   
