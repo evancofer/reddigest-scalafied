@@ -17,7 +17,7 @@ object Forms {
 		mapping(
 			"name"->nonEmptyText,
 			"password"->nonEmptyText
-		)(User.apply)(User.unapply)
+		)(user.User.apply)(user.User.unapply)
 	)
 	
 //TODO user registration form.

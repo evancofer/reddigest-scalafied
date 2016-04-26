@@ -18,8 +18,6 @@ import scala.scalajs.js.JSON
 import upickle.default._
 import scala.concurrent.ExecutionContext.Implicits.global
 
-import shared.User
-import shared.Link
 
 @JSExport
 object Main extends JSApp {

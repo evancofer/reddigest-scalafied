@@ -3,13 +3,12 @@
 @import play.api.libs.json.JsValue
 @import play.api.Play.current
 @import play.api.i18n.Messages.Implicits._
-@import models._
 @import controllers._
 @import play.api.i18n._
 @import play.api.mvc._
 @import play.api.libs.json.Json
 
-@user("Links"){
+@userpage("Links"){
 	<table id="linkTable" class="table table-striped"></table>
 	@playscalajs.html.scripts("client")
 }

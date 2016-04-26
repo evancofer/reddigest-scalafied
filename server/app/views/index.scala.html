@@ -1,11 +1,12 @@
-@(userForm: Form[shared.User])(implicit request: RequestHeader)
+@import user.User
 @import play.api.libs.json.JsArray
 @import play.api.Play.current
 @import play.api.i18n.Messages.Implicits._
-@import models._
 @import controllers._
 @import play.api.i18n._
 @import play.api.mvc._
+
+@(userForm: Form[models.user.User])(implicit request: RequestHeader)
 
 
 @main("Login") {
@@ -15,6 +16,7 @@
         @helper.inputText(userForm("password"))
         <button type="submit">Login</button>
     }
+    
     
     @helper.form(action = routes.ApplicationController.addUser){
         @helper.inputText(userForm("name")),

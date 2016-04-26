@@ -1,13 +1,13 @@
-New log file opened at Tue Apr 26 12:27:02 CDT 2016 by 9679@ecofer-Aspire-V3-572G
-Taking next connection to: 43937
-New client attempting to connect on port: 35746-43937
-  Address = /127.0.1.1:43937
-This client on port 35746 has uuid 5d261e8e-9e8d-4bc9-a547-fbc440f0cf6e configName activator humanReadableName Activator protocolVersion 3 featureTags Vector()
-Connected Clients: activator-5d261e8e-9e8d-4bc9-a547-fbc440f0cf6e
-Taking next connection to: 43937
-New client attempting to connect on port: 35748-43937
-  Address = /127.0.1.1:43937
-Handshake exception on socket: 35748
+New log file opened at Tue Apr 26 14:07:21 CDT 2016 by 16358@ecofer-Aspire-V3-572G
+Taking next connection to: 42088
+New client attempting to connect on port: 52544-42088
+  Address = /127.0.1.1:42088
+This client on port 52544 has uuid de07da3b-d7c9-4579-8032-5dcd9e2dfda8 configName activator humanReadableName Activator protocolVersion 3 featureTags Vector()
+Connected Clients: activator-de07da3b-d7c9-4579-8032-5dcd9e2dfda8
+Taking next connection to: 42088
+New client attempting to connect on port: 52546-42088
+  Address = /127.0.1.1:42088
+Handshake exception on socket: 52546
 sbt.impl.ipc.HandshakeException: Unable to perform handshake
 	at sbt.impl.ipc.Peer.handshake(IPC.scala:46)
 	at sbt.impl.ipc.MultiClientServer.<init>(IPC.scala:150)
@@ -17,42 +17,24 @@ Caused by: java.io.EOFException
 	at sbt.impl.ipc.Peer.receive(IPC.scala:95)
 	at sbt.impl.ipc.Peer.handshake(IPC.scala:49)
 	... 2 more
-Taking next connection to: 43937
-New client attempting to connect on port: 35750-43937
-  Address = /127.0.1.1:43937
-This client on port 35750 has uuid bb36c6b3-3c7f-4ee6-904b-cb88bf3b8cf1 configName activator humanReadableName Activator protocolVersion 3 featureTags Vector()
-Connected Clients: activator-5d261e8e-9e8d-4bc9-a547-fbc440f0cf6e, activator-bb36c6b3-3c7f-4ee6-904b-cb88bf3b8cf1
-Taking next connection to: 43937
+Taking next connection to: 42088
+New client attempting to connect on port: 52548-42088
+  Address = /127.0.1.1:42088
+This client on port 52548 has uuid b76297bd-1dea-481b-a30c-547343b82fbc configName activator humanReadableName Activator protocolVersion 3 featureTags Vector()
+Connected Clients: activator-de07da3b-d7c9-4579-8032-5dcd9e2dfda8, activator-b76297bd-1dea-481b-a30c-547343b82fbc
+Taking next connection to: 42088
 Checking to see if clients are empty...
 We have 1 non-daemon clients, continuing serving connections.
-Taking next connection to: 43937
+Taking next connection to: 42088
 Checking to see if clients are empty...
 We have 1 non-daemon clients, continuing serving connections.
-Taking next connection to: 43937
+Taking next connection to: 42088
 Checking to see if clients are empty...
 We have 1 non-daemon clients, continuing serving connections.
-Taking next connection to: 43937
+Taking next connection to: 42088
 Checking to see if clients are empty...
 We have 1 non-daemon clients, continuing serving connections.
-Taking next connection to: 43937
+Taking next connection to: 42088
 Checking to see if clients are empty...
 We have 1 non-daemon clients, continuing serving connections.
-Taking next connection to: 43937
-Checking to see if clients are empty...
-We have 1 non-daemon clients, continuing serving connections.
-Taking next connection to: 43937
-Checking to see if clients are empty...
-We have 1 non-daemon clients, continuing serving connections.
-Taking next connection to: 43937
-Checking to see if clients are empty...
-We have 1 non-daemon clients, continuing serving connections.
-Taking next connection to: 43937
-Checking to see if clients are empty...
-We have 1 non-daemon clients, continuing serving connections.
-Taking next connection to: 43937
-Checking to see if clients are empty...
-We have 1 non-daemon clients, continuing serving connections.
-Taking next connection to: 43937
-Checking to see if clients are empty...
-We have 1 non-daemon clients, continuing serving connections.
-Taking next connection to: 43937
+Taking next connection to: 42088

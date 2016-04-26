@@ -14,11 +14,13 @@ import scala.concurrent.Await
 import services.UserService
 import services.LinkService
 import models.Forms
-import models._
-import shared._
+import models.link.Link
+import models.user.User
+import models.Models
 
 
 class ApplicationController extends Controller {
+  
   
   def index = Action.async { implicit request => {
       println("index")

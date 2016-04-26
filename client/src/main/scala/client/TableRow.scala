@@ -18,10 +18,6 @@ import scala.scalajs.js.JSON
 import upickle.default._
 import scala.concurrent.ExecutionContext.Implicits.global
 
-import shared._
-
-
-
 class TableRow(private var link:Link, val rowNumber:Int, private val html:String){//change this eventually yo to html:HTMLTableRowElement
   //TODO on construction automatically add content to the DOM element.
   
@@ -105,7 +101,7 @@ object TableRow {
   //val rows:Array[TableRow]
   
   def initialize():Unit = {
-      ???
+    ???
   }
   
   

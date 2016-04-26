@@ -5,10 +5,10 @@ import scala.concurrent.Future
 import scala.concurrent.Promise
 import scala.concurrent.ExecutionContext.Implicits.global
 
-import shared._
-import models._
+import models.user._
 
 object UserService {
+    
 
   def addUser(user: User):Future[Option[User]] = {
     Users.addUser(user)
