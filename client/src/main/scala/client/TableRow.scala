@@ -22,7 +22,7 @@ import shared._
 
 
 
-class TableRow(private var link:shared.Link, val rowNumber:Int, private val html:HTMLTableRowElement){
+class TableRow(private var link:Link, val rowNumber:Int, private val html:String){//change this eventually yo to html:HTMLTableRowElement
   //TODO on construction automatically add content to the DOM element.
   
   def refresh():Unit = {
@@ -102,24 +102,29 @@ object TableRow {
   //TODO Keep a link source object that allows us to do the buffered checks and only pull out one at a time?
   
   //TODO: Create the table in the dom with the rows, and pass the row references to new tablerows
-  val rows:Array[TableRow](25)
+  //val rows:Array[TableRow]
   
-  
-  def load(n:Int):Seq[shared.Link] = {//TODO loads a new set of links from reddit that has n links in it?
-    
+  def initialize():Unit = {
+      ???
   }
   
-  def load():shared.Link = {
+  
+  def load(n:Int):Seq[Link] = {//TODO loads a new set of links from reddit that has n links in it?
+    ???
+  }
+  
+  def load():Link = {
     //Just loads a single link.
+    ???
   }
 
   
   @JSExport
   def refreshRow(n:Int):Unit = {//TODO Make it so this can also take a javascript dynamic and cast to int!
-    if(n < 0 || n >= rows.size){
+    if(n < 0 || n >= 5){//rows.size instead of 5
       return 
     } else {
-      this.rows(n).refresh()
+      //this.rows(n).refresh()
     }
   }
   

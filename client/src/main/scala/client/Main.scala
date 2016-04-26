@@ -26,6 +26,6 @@ object Main extends JSApp {
 	
 	@JSExport
 	def main():Unit = {
-	Table.render()
+	TableRow.initialize()
 	}
 }

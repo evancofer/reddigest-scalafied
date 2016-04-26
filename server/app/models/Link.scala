@@ -8,25 +8,10 @@ import scala.concurrent.Future
 import slick.driver.JdbcProfile
 import slick.driver.MySQLDriver.api._
 import scala.concurrent.ExecutionContext.Implicits.global
-import play.api.libs.json._
-import play.api.libs.functional.syntax._
 
 import shared._
 
-implicit val linkWrites = new Writes[shared.Link] {
-  def writes(link: shared.Link) = Json.obj(
-      "userName" -> link.userName,
-      "data" -> Json.toJson(link.data)
-  )
-}
-
-//TODO: May need to revamp this method...a lot.
-implicit val linkReads: Reads[shared.Link] = (
-  (JsPath \ "userName").read[String] and
-  (JsPath \ "data").read[shared.LinkData]
-)(Link.apply _)
-
-class LinkTableDef(tag: Tag) extends Table[shared.Link](tag, "link"){
+class LinkTableDef(tag: Tag) extends Table[Link](tag, "link"){
   def userName = column[String]("userName")
   def url = column[String]("url")
   def title = column[String]("title")
@@ -37,19 +22,26 @@ class LinkTableDef(tag: Tag) extends Table[shared.Link](tag, "link"){
   val permalink = column[String]("permalink")
 	
 	override def * = 
-	(userName, shared.LinkData(url, title, domain, author, subreddit, num_comments, permalink)) <> (shared.Link.tupled, shared.Link.unapply)
+	(userName, url, title, domain, author, subreddit, num_comments, permalink) <> (Link.tupled, Link.unapply)
 }
 
+
 object Links {
-  //TODO Add try catches etc.
-	lazy val links = new TableQuery(tag => new LinkTableDef(tag))
+  
+  //TODO Add try-catches etc.
+    lazy val links = new TableQuery(tag => new LinkTableDef(tag))
 	
-  def getLink(link: shared.Link):Future[Option[shared.Link]] = {
-    Database.dbConfig.db.run(links.filter(_ === link)).result.headOption
+	
+  def getLink(link: Link):Future[Option[Link]] = {
+    Database.dbConfig.db.run(links.filter(aLink => 
+     aLink.userName === link.userName && (aLink.url === link.data.url || aLink.title === link.data.title)
+    ).result.headOption)
   }
 
-  def addLink(link: shared.Link):Unit = {
+	
+  def addLink(link: Link):Unit = {
     Database.dbConfig.db.run(links += link)
   }
+  
 }
 

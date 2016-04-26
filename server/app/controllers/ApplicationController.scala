@@ -13,10 +13,12 @@ import scala.concurrent.Await
 
 import services.UserService
 import services.LinkService
-import shared.User
+import models.Forms
+import models._
+import shared._
+
 
 class ApplicationController extends Controller {
-  
   
   def index = Action.async { implicit request => {
       println("index")
@@ -27,7 +29,7 @@ class ApplicationController extends Controller {
             _ match {
               case Some(user) => {
                 println("Found username while loading index:" + userName)
-                links_ => Ok(views.html.links).withSession("user" -> user.name)
+                Ok("TODO")//?.withSession("user" -> user.userName)
               }
               case None => {
                 println("No username found for" + userName)
@@ -61,7 +63,7 @@ class ApplicationController extends Controller {
                 }
                 case None => {
                   println("Failed login attempt for: "+data.name)
-                  ??? //TODO: Make a page for when user login fails.
+                   Ok("woops") //TODO: Make a page for when user login fails.
                 }
               }
             }
@@ -81,8 +83,8 @@ class ApplicationController extends Controller {
                       Redirect(routes.ApplicationController.index).withSession("user"->user.name)
                     }
                     case None => {
-                      println("Could not make new user: "+user.name)
-                      ??? //TODO: Make a page for when new user registration fails.
+                      println("Could not make new user: "+data.name)
+                       Ok("woops") //TODO: Make a page for when new user registration fails.
                     }
                   }
                 }
@@ -103,7 +105,7 @@ class ApplicationController extends Controller {
                   }
                   case Some(user) => {
                     println("Could not delete user: "+user.name)
-                    ??? //TODO: Make a page for when...how do we even get here?
+                    Ok("woops") //TODO: Make a page for when...how do we even get here?
                   }
                 }
               }
@@ -111,22 +113,22 @@ class ApplicationController extends Controller {
         )
     }}
   
-//TODO Tbh might want to check out http://bsonspec.org/ and gzip our Ajax stuff
-// client side so we can check a bunch of links at once, then with bitstring?
-  that are good.
+//TODO: make it so that we can check like 25 links at a time, so that way we dont have to destroy the server
   def getLink = Action { implicit request => {
     request.session.get("user") match {
-      case None => TODO //What do we do if this happens?
+      case None => Ok("woops") //What do we do if this happens?
       case Some(userName) => {
-        LinkService.getLink(
-          Link(userName, (request.body.asJson() \ "data").as[shared.LinkData])
-        ).map(
-            _ match {
-//TODO: make it so that we can check like 25 links at a time, so that way we dont have to destroy the server
-              case Some(user) => Ok("Not a new link")
-              case None => Ok("New link")
+         request.body.asJson match {
+            case Some(json) => {
+                LinkService.getLink(Json.fromJson[Link](json)).map(
+                    _ match {
+                        case Some(user) => Ok("Not a new link")
+                        case None => Ok("New link")
+                    }
+                )
             }
-        )  
+            case None => Ok("whoops")
+         }
       }
     }
   }}
@@ -134,11 +136,14 @@ class ApplicationController extends Controller {
 
   def addLink = Action { implicit request => {
     request.session.get("user") match {
-      case None => TODO //What do we do if this happens?
+      case None =>  Ok("woops") //What do we do if this happens?
       case Some(userName) => {
-        LinkService.addLink(
-          Link(userName, (request.body.asJson() \ "data").as[shared.LinkData])
-        )
+         request.body.asJson match {
+            case Some(json) => {
+                LinkService.addLink(Json.fromJson[Link](json))
+            }
+            case None => Ok("whoops")
+         }
       }
     }
   }}

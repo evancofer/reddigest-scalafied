@@ -1,5 +1,5 @@
-New log file opened at Sun Apr 24 15:38:50 CDT 2016 by 24265@ecofer-Aspire-V3-572G
-jvm 24265@ecofer-Aspire-V3-572G
+New log file opened at Tue Apr 26 12:26:44 CDT 2016 by 9492@ecofer-Aspire-V3-572G
+jvm 9492@ecofer-Aspire-V3-572G
 jvm vmName=OpenJDK 64-Bit Server VM vmVendor=Oracle Corporation vmVersion=25.66-b17
 jvm specName=Java Virtual Machine Specification specVendor=Oracle Corporation specVersion=1.8
 jvm arguments: [-Xms256m, -Xmx1024m]
@@ -27,7 +27,7 @@ sorting: ns: List(sbt.plugins.CorePlugin, sbt.plugins.IvyPlugin, sbt.plugins.Jvm
   :: sorted deduced result: List(sbt.plugins.CorePlugin, sbt.plugins.IvyPlugin, sbt.plugins.JvmPlugin, sbt.plugins.JUnitXmlReportPlugin)
 [Loading] Done in /home/ecofer/git/reddigest-scalafied/project, returning: (reddigest-scalafied-build)
 Loading project definition from /home/ecofer/git/reddigest-scalafied/project
-Running task... Cancel: sbt.TaskCancellationStrategy$Null$@39080f7f, check cycles: false
+Running task... Cancel: sbt.TaskCancellationStrategy$Null$@183d8fe2, check cycles: false
 
 Initial source changes: 
 	removed:Set()
@@ -114,4 +114,4 @@ Waiting for socket thread
 Waiting for request processor thread
 Waiting for command engine result
 Returning control to sbt launcher with result Exit(0)
-Closing the 24265@ecofer-Aspire-V3-572G logs at Sun Apr 24 15:39:04 CDT 2016, goodbye.
+Closing the 9492@ecofer-Aspire-V3-572G logs at Tue Apr 26 12:26:57 CDT 2016, goodbye.

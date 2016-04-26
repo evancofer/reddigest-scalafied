@@ -10,15 +10,19 @@ import models._
 
 object UserService {
 
-  def addUser(user: shared.User):Future[Option[shared.User]] = {
+  def addUser(user: User):Future[Option[User]] = {
     Users.addUser(user)
   }
   
-  def removeUser(user: shared.User):Future[Option[shared.User]] = {
+  def removeUser(user: User):Future[Option[User]] = {
     Users.removeUser(user)
   }
   
-  def getUser(user: shared.User):Future[Option[shared.User]] = {
+  def getUser(user: User):Future[Option[User]] = {
     Users.getUser(user)
+  }
+  
+  def getUserByName(userName: String):Future[Option[User]] = {
+      ???
   }
 }

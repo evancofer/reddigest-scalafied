@@ -9,7 +9,8 @@
 @import play.api.mvc._
 @import play.api.libs.json.Json
 @(title:String)(content:Html)
-@main("User - "+@title ){
+
+@main("User - "+ title ){
 <script src="@routes.Assets.versioned("javascripts/scripts.js")" type="text/javascript"></script>
 <nav class="navbar navbar-fixed-top">
     <div><button class="btn btn-warning pull-right" style="margin-right: 1%;" onclick="javascript:logout()">Log Out</button></div>

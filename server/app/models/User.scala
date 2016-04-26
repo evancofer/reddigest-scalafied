@@ -9,7 +9,7 @@ import slick.driver.JdbcProfile
 import slick.driver.MySQLDriver.api._
 import scala.concurrent.ExecutionContext.Implicits.global
 
-import shared.User //XXX I think this is how I should do this.
+import shared._ 
 
 
 
@@ -21,12 +21,13 @@ class UserTableDef(tag: Tag) extends Table[User](tag, "user"){
 	(name, password) <> (User.tupled, User.unapply)
 }
 
+
 object Users {
 	lazy val users = new TableQuery(tag => new UserTableDef(tag))
 
 	
 //TODO: Add exception handling to all of the database queries.
-  def addUser(user: shared.User):Future[Option[shared.User]] = {
+  def addUser(user: User):Future[Option[User]] = {
     getUser(user).map{
        _ match {
          case Some(oldUser) => {
@@ -40,25 +41,25 @@ object Users {
     }
   }
 	
-  def getUser(user: shared.User):Future[Option[shared.User]] = {
+  def getUser(user: User):Future[Option[User]] = {
     Database.dbConfig.db.run(
         users.filter( aUser =>
-            _ === user
+            (aUser.name === user.name && aUser.password === user.password)
         ).result.headOption
     )
   }
   
-  def removeUser(user: shared.User):Future[Option[shared.User]] = {
+  def removeUser(user: User):Future[Option[User]] = {
 //TODO: Make sure this is the right way to go about remove users from the database, seems unsafe but maybe not?
      Database.dbConfig.db.run(
-         users.filter(
-             _ === user
+         users.filter( aUser =>
+             (aUser.name === user.name && aUser.password === user.password)
          ).delete  
      )
  //TODO: TBH could maybe get away without this return? An exception on failur is definitely not the right answer either however.
      Database.dbConfig.db.run(
-         users.filter(
-             _ === user 
+         users.filter( aUser =>
+             (aUser.name === user.name && aUser.password === user.password)
          ).result.headOption
      )
   }
