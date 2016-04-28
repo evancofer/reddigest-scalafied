@@ -1,0 +1,55 @@
+body{
+	color: #595959;
+	background-color: #4d4d4d;
+	font-family: tahoma, sans-serif;
+}
+
+h1{
+	font-family: tahoma,sans-serif;
+}
+
+input{
+	font-size: 14pt;
+	font-family: verdana,sans-serif;
+}
+
+label{
+	font-size: 14pt;
+	font-family: verdana,sans-serif;
+}
+span{
+	margin-top: 5px;
+	font-size: 14pt;
+}
+
+a:link {
+	color: #595959;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #D8D8D8;
+	text-decoration: underline;
+}
+
+a:visited {
+	color: #D8D8D8;
+	text-decoration: none;
+}
+
+.modal-backdrop {
+  background-color: #666666;
+}
+
+.disabled {
+	color: #737373;
+	background-color: #F5F5F5;
+}
+
+.jumbotron {
+	background-color: #F5F5F5;
+}
+
+button {
+	font-variant:small-caps;
+}
