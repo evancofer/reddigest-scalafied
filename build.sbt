@@ -49,9 +49,4 @@ EclipseKeys.skipParents in ThisBuild := false
 
 onLoad in Global := (Command.process("project server", _: State)) compose (onLoad in Global).value
 
-
-
 fork in run := false
-
-
-fork in run := true
