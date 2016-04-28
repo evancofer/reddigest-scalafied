@@ -41,6 +41,14 @@ object Users {
         ).result.headOption
     )
   }
+
+  def getUserByName(userName: String): Future[Option[User]] = {
+    Models.dbConfig.db.run(
+      users.filter( aUser =>
+        (aUser.name === userName)
+      ).result.headOption
+    )
+  }
   
   def removeUser(user: User):Future[Option[User]] = {
 //TODO: Make sure this is the right way to go about remove users from the database, seems unsafe but maybe not?
