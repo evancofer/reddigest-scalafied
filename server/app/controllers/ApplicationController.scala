@@ -12,6 +12,7 @@ import play.api.libs.json.JsString
 import scala.concurrent.Await
 import play.api.data.validation.ValidationError
 import play.api.libs.json._
+import play.api.libs.json.JsBoolean
 
 import services.UserService
 import services.LinkService
@@ -57,7 +58,8 @@ class ApplicationController extends Controller {
 
   def login = Action.async {implicit request => {
       Forms.userForm.bindFromRequest.fold(
-          formWithErrors => Future{views.html.???(formWithErrors)},//TODO Need a page for user login before we can do this.
+          formWithErrors => Future{Status(404)}
+          //formWithErrors => Future{views.html.???(formWithErrors)}, //TODO Need a page for the user deletion before we can do this.
           data => {
             UserService.getUser( User(data.name, data.password) ).map{
               _ match {
@@ -78,7 +80,8 @@ class ApplicationController extends Controller {
   
   def addUser = Action.async { implicit request => {
       Forms.userForm.bindFromRequest.fold(
-          formWithErrors => Future{views.html.???(formWithErrors)},//TODO Need a page for user registration before we can do this.
+          formWithErrors => Future{Status(404)}
+          //formWithErrors => Future{views.html.???(formWithErrors)}, //TODO Need a page for the user deletion before we can do this.
           data => {
                 UserService.addUser(User(data.name, data.password)).map{
                    _ match {
@@ -99,7 +102,8 @@ class ApplicationController extends Controller {
   
   def removeUser = Action.async { implicit request => {
       Forms.userForm.bindFromRequest.fold(
-          formWithErrors => Future{views.html.???(formWithErrors)},//TODO Need a page for the user deletion before we can do this.
+          formWithErrors => Future{Status(404)}
+          //formWithErrors => Future{views.html.???(formWithErrors)}, //TODO Need a page for the user deletion before we can do this.
           data => {
               UserService.removeUser(User(data.name, data.password)).map{
                  _ match {
@@ -117,6 +121,26 @@ class ApplicationController extends Controller {
         )
     }}
   
+  def userPage = Action.async {implicit request => {
+      println("Loading user account page")
+      request.session.get("user") match {
+        case None => Future{Status(404)}//Redirect(routes.ApplicationController.index).withNewSession
+        case Some(userName) => {
+          UserService.getUserByName(userName).map {
+            _ match {
+              case Some(user) => {
+                println("Found username while loading index:" + userName)
+                Ok(views.html.userpage).withSession("user"->user.name)
+              }
+              case None => {
+                println("No username found for" + userName)
+                Redirect(routes.ApplicationController.index).withNewSession//TODO What is done if user is set in request but not found???
+              }
+            }
+          }
+        }
+      }
+  }}
   
   def getLink = Action.async { implicit request => {
     request.session.get("user") match {
@@ -124,12 +148,12 @@ class ApplicationController extends Controller {
       case Some(userName) => {
          request.body.asJson match {
             case Some(json) => {
-                Json.fromJson[Link](json) match {
-                    case link: JsSuccess[Link] => {
-                        LinkService.getLink(link.get).map(
+                Json.fromJson[LinkData](json) match {
+                    case linkData: JsSuccess[LinkData] => {
+                        LinkService.getLink(Link(userName, linkData.get)).map(
                             _ match {
-                                case Some(user) => Ok("Not a new link")
-                                case None => Ok("New link")
+                                case Some(link) => Ok(JsBoolean(False))//Link found in DB.
+                                case None => Ok(JsBoolean(True))//Link not found in DB.
                             }
                         )
                     }
@@ -141,6 +165,32 @@ class ApplicationController extends Controller {
       }
     }
   }}
+  
+  /*def getLinks = Action.async{ implicit request => {
+    request.session.get("user") match {
+      case None => Future{Status(404)} //XXX No user
+      case Some(userName) => {
+         request.body.asJson match {
+            case Some(json) => {
+                Json.fromJson[List[LinkData]](json) match {
+                    case linkDataList: JsSuccess[List[LinkData]] => { Ok(//TODO: Do we need to call json.stringify on this?
+                       JsArray[JsBoolean]{ linkDataList.get.map( linkData =>
+                          LinkService.getLink(Link(userName, linkData)).map(
+                            _ match {
+                              case Some(link_) => JsBoolean(False)//Link found in DB.
+                              case None => JsBoolean(True) //Link not found in DB.
+                            }
+                          )
+                        )}
+                    })
+                    case _ => Future{Status(404)}//XXX Bad json.
+                }
+            }
+            case None => Future{Status(404)}//XXX No json.
+         }
+      }
+    }
+  }}*/
   
 
   def addLink = Action { implicit request => {
