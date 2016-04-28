@@ -1,13 +1,13 @@
-New log file opened at Tue Apr 26 16:40:41 CDT 2016 by 25018@ecofer-Aspire-V3-572G
-Taking next connection to: 44029
-New client attempting to connect on port: 53772-44029
-  Address = /127.0.1.1:44029
-This client on port 53772 has uuid 7a77f71a-cd17-4460-9cd3-4a82d4e0fc94 configName activator humanReadableName Activator protocolVersion 3 featureTags Vector()
-Connected Clients: activator-7a77f71a-cd17-4460-9cd3-4a82d4e0fc94
-Taking next connection to: 44029
-New client attempting to connect on port: 53774-44029
-  Address = /127.0.1.1:44029
-Handshake exception on socket: 53774
+New log file opened at Tue Apr 26 16:58:05 CDT 2016 by 28187@ecofer-Aspire-V3-572G
+Taking next connection to: 42890
+New client attempting to connect on port: 54034-42890
+  Address = /127.0.1.1:42890
+This client on port 54034 has uuid d5b49be5-c316-4414-92ea-64915cb87316 configName activator humanReadableName Activator protocolVersion 3 featureTags Vector()
+Connected Clients: activator-d5b49be5-c316-4414-92ea-64915cb87316
+Taking next connection to: 42890
+New client attempting to connect on port: 54036-42890
+  Address = /127.0.1.1:42890
+Handshake exception on socket: 54036
 sbt.impl.ipc.HandshakeException: Unable to perform handshake
 	at sbt.impl.ipc.Peer.handshake(IPC.scala:46)
 	at sbt.impl.ipc.MultiClientServer.<init>(IPC.scala:150)
@@ -17,21 +17,9 @@ Caused by: java.io.EOFException
 	at sbt.impl.ipc.Peer.receive(IPC.scala:95)
 	at sbt.impl.ipc.Peer.handshake(IPC.scala:49)
 	... 2 more
-Taking next connection to: 44029
-New client attempting to connect on port: 53776-44029
-  Address = /127.0.1.1:44029
-This client on port 53776 has uuid f0ee6f91-ad87-4d2d-a70c-731ddb1a09e8 configName activator humanReadableName Activator protocolVersion 3 featureTags Vector()
-Connected Clients: activator-7a77f71a-cd17-4460-9cd3-4a82d4e0fc94, activator-f0ee6f91-ad87-4d2d-a70c-731ddb1a09e8
-Taking next connection to: 44029
-Checking to see if clients are empty...
-We have 1 non-daemon clients, continuing serving connections.
-Taking next connection to: 44029
-Checking to see if clients are empty...
-We have 1 non-daemon clients, continuing serving connections.
-Taking next connection to: 44029
-Checking to see if clients are empty...
-We have 1 non-daemon clients, continuing serving connections.
-Taking next connection to: 44029
-Checking to see if clients are empty...
-We have 1 non-daemon clients, continuing serving connections.
-Taking next connection to: 44029
+Taking next connection to: 42890
+New client attempting to connect on port: 54038-42890
+  Address = /127.0.1.1:42890
+This client on port 54038 has uuid db6853d8-6c3e-468d-9a99-80ef6f54750d configName activator humanReadableName Activator protocolVersion 3 featureTags Vector()
+Connected Clients: activator-d5b49be5-c316-4414-92ea-64915cb87316, activator-db6853d8-6c3e-468d-9a99-80ef6f54750d
+Taking next connection to: 42890
