@@ -13,6 +13,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import shared._
 
 class LinkTableDef(tag: Tag) extends Table[Link](tag, "link"){
+  def linkid = column[Int]("linkid", O.PrimaryKey, O.AutoInc)
   def userName = column[String]("userName")
   def url = column[String]("url")
   def title = column[String]("title")

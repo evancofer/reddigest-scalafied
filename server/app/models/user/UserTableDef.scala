@@ -14,7 +14,8 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import shared._
 
 class UserTableDef(tag: Tag) extends Table[User](tag, "user"){
-	def name = column[String]("name")
+	def userid = column[Int]("userid", O.PrimaryKey, O.AutoInc)
+  def name = column[String]("name")
 	def password = column[String]("password")
 	
 	override def * = 

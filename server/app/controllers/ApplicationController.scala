@@ -33,11 +33,11 @@ class ApplicationController extends Controller {
             _ match {
               case Some(user) => {
                 println("Found username while loading index:" + userName)
-                Ok("TODO")//?.withSession("user" -> user.userName)
+                Ok(views.html.links)//?.withSession("user" -> user.userName)
               }
               case None => {
                 println("No username found for" + userName)
-                Ok(views.html.index(Forms.userForm))
+                Ok(views.html.index(Forms.userForm))//TODO What is done if user is set in request but not found???
               }
             }
           }
@@ -57,7 +57,7 @@ class ApplicationController extends Controller {
 
   def login = Action.async {implicit request => {
       Forms.userForm.bindFromRequest.fold(
-          formWithErrors => Future{Redirect(routes.ApplicationController.index)},
+          formWithErrors => Future{views.html.???(formWithErrors)},//TODO Need a page for user login before we can do this.
           data => {
             UserService.getUser( User(data.name, data.password) ).map{
               _ match {
@@ -67,7 +67,7 @@ class ApplicationController extends Controller {
                 }
                 case None => {
                   println("Failed login attempt for: "+data.name)
-                   Ok("woops") //TODO: Make a page for when user login fails.
+                   Ok("woops") //TODO: How to handle failed user login?
                 }
               }
             }
@@ -78,7 +78,7 @@ class ApplicationController extends Controller {
   
   def addUser = Action.async { implicit request => {
       Forms.userForm.bindFromRequest.fold(
-          errorForm => Future{Redirect(routes.ApplicationController.index)},
+          formWithErrors => Future{views.html.???(formWithErrors)},//TODO Need a page for user registration before we can do this.
           data => {
                 UserService.addUser(User(data.name, data.password)).map{
                    _ match {
@@ -88,7 +88,7 @@ class ApplicationController extends Controller {
                     }
                     case None => {
                       println("Could not make new user: "+data.name)
-                       Ok("woops") //TODO: Make a page for when new user registration fails.
+                       Ok("TODO") //TODO: Make a page for when new user registration fails.
                     }
                   }
                 }
@@ -99,7 +99,7 @@ class ApplicationController extends Controller {
   
   def removeUser = Action.async { implicit request => {
       Forms.userForm.bindFromRequest.fold(
-          errorForm => Future{Redirect(routes.ApplicationController.index)},//TODO: Make a page/response for when user deletion fucks up.
+          formWithErrors => Future{views.html.???(formWithErrors)},//TODO Need a page for the user deletion before we can do this.
           data => {
               UserService.removeUser(User(data.name, data.password)).map{
                  _ match {
@@ -109,7 +109,7 @@ class ApplicationController extends Controller {
                   }
                   case Some(user) => {
                     println("Could not delete user: "+user.name)
-                    Ok("woops") //TODO: Make a page for when...how do we even get here?
+                    Status(404) //XXX Couldn't delete user.
                   }
                 }
               }
@@ -118,10 +118,9 @@ class ApplicationController extends Controller {
     }}
   
   
-//TODO: make it so that we can check like 25 links at a time, so that way we dont have to destroy the server
   def getLink = Action.async { implicit request => {
     request.session.get("user") match {
-      case None => Future{Ok("woops")} //What do we do if this happens?
+      case None => Future{Status(404)} //XXX No user
       case Some(userName) => {
          request.body.asJson match {
             case Some(json) => {
@@ -134,10 +133,10 @@ class ApplicationController extends Controller {
                             }
                         )
                     }
-                    case _ => Future{Ok("TODO")}
+                    case _ => Future{Status(404)}//XXX Bad json
                 }
             }
-            case None => Future{Ok("whoops")}
+            case None => Future{Status(404)}//XXX No json.
          }
       }
     }
@@ -146,7 +145,7 @@ class ApplicationController extends Controller {
 
   def addLink = Action { implicit request => {
     request.session.get("user") match {
-      case None =>  Ok("woops") //What do we do if this happens?
+      case None =>  Status(404) //XXX No user
       case Some(userName) => {
          request.body.asJson match {
             case Some(json) => {
@@ -155,10 +154,10 @@ class ApplicationController extends Controller {
                         LinkService.addLink(link.get)
                         Ok("Todo")
                     }
-                    case _ => Ok("Todo")
+                    case _ => Status(404)//XXX Bad json
                 }
             }
-            case None => Ok("whoops")
+            case None => Status(404)//XXX No json
          }
       }
     }
