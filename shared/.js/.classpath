@@ -1,6 +1,6 @@
 <classpath>
-  <classpathentry output="-home-ecofer-git-reddigest-scalafied-shared-src-main-scala" kind="src" path="-home-ecofer-git-reddigest-scalafied-shared-src-main-scala"/>
-  <classpathentry kind="lib" path="/home/ecofer/.ivy2/cache/org.scala-js/scalajs-library_2.11/jars/scalajs-library_2.11-0.6.8.jar"/>
+  <classpathentry output="-users-ecofer-git-reddigest-scalafied-shared-src-main-scala" kind="src" path="-users-ecofer-git-reddigest-scalafied-shared-src-main-scala"/>
+  <classpathentry kind="lib" path="/users/ecofer/.ivy2/cache/org.scala-js/scalajs-library_2.11/jars/scalajs-library_2.11-0.6.8.jar"/>
   <classpathentry kind="con" path="org.scala-ide.sdt.launching.SCALA_CONTAINER"/>
   <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
   <classpathentry kind="output" path="bin"/>

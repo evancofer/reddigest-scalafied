@@ -1,12 +1,12 @@
 <classpath>
   <classpathentry kind="src" path="src/main/scala"/>
   <classpathentry kind="src" path="/shared" exported="true" combineaccessrules="false"/>
-  <classpathentry kind="lib" path="/home/ecofer/.ivy2/cache/org.scala-js/scalajs-library_2.11/jars/scalajs-library_2.11-0.6.8.jar"/>
+  <classpathentry kind="lib" path="/users/ecofer/.ivy2/cache/org.scala-js/scalajs-library_2.11/jars/scalajs-library_2.11-0.6.8.jar"/>
   <classpathentry kind="con" path="org.scala-ide.sdt.launching.SCALA_CONTAINER"/>
-  <classpathentry kind="lib" path="/home/ecofer/.ivy2/cache/org.scala-js/scalajs-dom_sjs0.6_2.11/jars/scalajs-dom_sjs0.6_2.11-0.8.0.jar"/>
-  <classpathentry kind="lib" path="/home/ecofer/.ivy2/cache/com.lihaoyi/upickle_2.11/jars/upickle_2.11-0.3.9.jar"/>
-  <classpathentry kind="lib" path="/home/ecofer/.ivy2/cache/com.lihaoyi/derive_2.11/jars/derive_2.11-0.3.9.jar"/>
-  <classpathentry kind="lib" path="/home/ecofer/.ivy2/cache/org.spire-math/jawn-parser_2.11/jars/jawn-parser_2.11-0.8.3.jar"/>
+  <classpathentry kind="lib" path="/users/ecofer/.ivy2/cache/org.scala-js/scalajs-dom_sjs0.6_2.11/jars/scalajs-dom_sjs0.6_2.11-0.8.0.jar"/>
+  <classpathentry kind="lib" path="/users/ecofer/.ivy2/cache/com.lihaoyi/upickle_2.11/jars/upickle_2.11-0.3.9.jar"/>
+  <classpathentry kind="lib" path="/users/ecofer/.ivy2/cache/com.lihaoyi/derive_2.11/jars/derive_2.11-0.3.9.jar"/>
+  <classpathentry kind="lib" path="/users/ecofer/.ivy2/cache/org.spire-math/jawn-parser_2.11/jars/jawn-parser_2.11-0.8.3.jar"/>
   <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
   <classpathentry kind="output" path="bin"/>
 </classpath>
