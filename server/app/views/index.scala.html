@@ -23,24 +23,26 @@
 <div class='user-action-form-container'>
     @helper.form(action = routes.ApplicationController.login){
         @helper.inputText(
-        userForm("username"),
-        'class -> "username form-control",
-        'placeholder -> "username",
-        '_label -> null,
-        '_error -> "<span style='color:#ff0000'>username required</span>",
-        '_showLabel -> false,
-        '_showConstraints -> false
+            userForm("username"),
+            'class -> "username form-control",
+            'placeholder -> "username",
+            'onkeyup -> "javascript:js_inputButton('#loginbutton')",
+            '_label -> null,
+            '_error -> "<span style='color:#ff0000'>username required</span>",
+            '_showLabel -> false,
+            '_showConstraints -> false
         )
         @helper.inputPassword(
-        userForm("password"),
-        'class -> "password form-control",
-        'placeholder -> "password",
-        '_label -> null,
-        '_error -> "<span style='color:#ff0000'>password required</span>",
-        '_showLabel -> false,
-        '_showConstraints -> false
+            userForm("password"),
+            'class -> "password form-control",
+            'placeholder -> "password",
+            'onkeyup -> "javascript:js_inputButton('#loginbutton')",
+            '_label -> null,
+            '_error -> "<span style='color:#ff0000'>password required</span>",
+            '_showLabel -> false,
+            '_showConstraints -> false
         )
-        <button onmouseover="javascript:js_inputButton(this)" class="btn btn-block" type="login_button" type="submit">login</button>
+        <button onmouseover="javascript:js_inputButton('#loginbutton')" class="btn btn-block" type="login_button" type="submit" id="loginbutton">login</button>
     }
 </div>
 
@@ -61,6 +63,7 @@
         userForm("username"),
         'class -> "username form-control",
         'placeholder -> "choose a username",
+        'onkeyup -> "javascript:js_inputButton('#registerbutton')",
         '_label -> null,
         '_error -> "<span style='color:#ff0000'>username required</span>",
         '_showLabel -> false,
@@ -70,14 +73,18 @@
         userForm("password"),
         'class -> "password form-control",
         'placeholder -> "password",
+        'onkeyup -> "javascript:js_inputButton('#registerbutton')",
         '_label -> null,
         '_error -> "<span style='color:#ff0000'>password required</span>",
         '_showLabel -> false,
         '_showConstraints -> false
         )
-        <button onmouseover="javascript:js_inputButton(this)" class="btn btn-block" id="register_button" type="submit">register</button>
+        <button onmouseover='javascript:js_inputButton('#registerbutton')' class="btn btn-block" type="submit" id="registerbutton">register</button>
     }
 </div>
 
   </div></div></div>
 }
+<script>
+    addInputListeners();
+</script>
