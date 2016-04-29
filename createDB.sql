@@ -1,4 +1,4 @@
-USE ecofer;
+USE redditviewer;
 
 CREATE TABLE user (
 userid INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
