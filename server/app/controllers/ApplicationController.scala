@@ -26,32 +26,19 @@ import models.Models
 class ApplicationController extends Controller {
   
   
-  def index = Action.async { implicit request => {
-      println("index")
-      request.session.get("user") match {
-        case None => Future {Ok(views.html.index(Forms.userForm))}
-        case Some(userName) => {
-          UserService.getUserByName(userName).map {
-            _ match {
-              case Some(user) => {
-                println("Found username while loading index:" + userName)
-                Ok(views.html.links())//?.withSession("user" -> user.userName)
-              }
-              case None => {
-                println("No username found for" + userName)
-                Ok(views.html.index(Forms.userForm))//TODO What is done if user is set in request but not found???
-              }
-            }
-          }
-        }
-      }
-    }
+  def index = Action {
+    Ok(views.html.index())
   }
 
+  def register = Action{ implicit request => {
+    //TODO: Take user input then either create account or return an error message
+    Ok("okiepokie")
+  }
+  }
   
   def logout = Action { implicit request => {
       println("Logging out")
-      //TODO: Figure out what should be done on logout (i.e. do we need any datbase interraction?)
+      //TODO: Figure out what should be done on logout (i.e. do we need any database interaction?)
       Redirect(routes.ApplicationController.index).withNewSession
     }
   }
@@ -65,7 +52,7 @@ class ApplicationController extends Controller {
             UserService.getUser( User(data.name, data.password) ).map{
               _ match {
                 case Some(user) =>{
-                  println("Login succeeded for: "+data.name)
+                  println("Login succeeded for: " + data.name)
                   Redirect(routes.ApplicationController.index).withSession("user"->user.name)
                 }
                 case None => {

@@ -1,0 +1,8 @@
+body{
+    background-image: url("background.png");
+    background-repeat: repeat;
+}
+
+.form-well{
+    background-color: rgba(170,170,170.45);
+}

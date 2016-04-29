@@ -1,8 +1,8 @@
 # Routes for most methods
 GET		/							controllers.ApplicationController.index
-GET 	/login						controllers.ApplicationController.login
+POST    /login                      controllers.ApplicationController.login
+POST    /register                   controllers.ApplicationController.register
 GET 	/logout						controllers.ApplicationController.logout
-POST 	/addUser					controllers.ApplicationController.addUser
 POST	/removeUser					controllers.ApplicationController.removeUser
 GET		/userPage					controllers.ApplicationController.userPage
 
@@ -12,4 +12,4 @@ GET		/getLink					controllers.ApplicationController.getLink
 #GET  	/getLinks					controllers.ApplicationController.getLinks
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file               				controllers.Assets.versioned(path="/public", file: Asset)
+GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
