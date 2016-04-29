@@ -1,3 +1,4 @@
+
 /* 
  * Not worth doing this in scalajs and having to worry
  * about some poorly documented or unimplemented 
@@ -12,13 +13,6 @@ function logout(){
 			location.reload();
 		}
 	});
-}
-
-function addInputListeners(){
-    var divs = $(".user-action-form-container")
-    var divchildren = divs.children("input").each(function(el){
-        el.attr("onclick","js_inputButton("+div.children("button")+")")
-    });
 }
 
 function validate(){
