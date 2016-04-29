@@ -11,8 +11,14 @@
 
 @main("User - "+ title ){
 <script src="@routes.Assets.versioned("javascripts/scripts.js")" type="text/javascript"></script>
-<nav class="navbar navbar-inverse navbar-fixed-top">
-    <div><button class="btn btn-warning pull-left" style="margin-right: 1%;" href="@routes.ApplicationController.userPage" onclick="">account</button><button class="btn btn-warning pull-left" style="margin-right: 1%;" href="@routes.ApplicationController.logout" onclick="">logout</button></div>
+<nav class="navbar navbar-fixed-top">
+  <div>
+ 	<ul class="nav navbar-nav navbar-right" style="background-color: #4d4d4d; ">
+    	<li><a style="margin-right: 1%; color: #ffffff;" href="@routes.ApplicationController.userPage">account</a></li>
+    	<li><a style="margin-right: 1%; color: #ffffff;" href="@routes.ApplicationController.logout">logout</a></li>
+    	<li><a style="margin-right: 25%; color: #ffffff;" href="@routes.ApplicationController.index">links</a></li>
+ 	</ul>     
+  </div>
 </nav>
 @content
 }
