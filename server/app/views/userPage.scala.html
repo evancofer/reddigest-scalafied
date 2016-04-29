@@ -1,0 +1,43 @@
+@import play.api.libs.json.JsArray
+@import play.api.libs.json.JsString
+@import play.api.libs.json.JsValue
+@import play.api.Play.current
+@import play.api.i18n.Messages.Implicits._
+@import controllers._
+@import play.api.i18n._
+@import play.api.mvc._
+@import play.api.libs.json.Json
+
+@(userForm: Form[models.user.User])(implicit request: RequestHeader)
+
+@userToolbar("Account Page"){
+<script src="@routes.Assets.versioned("javascripts/scripts.js")" type="text/javascript"></script>
+
+<div class='container'>
+	<div class="modal-content well well-lg">
+		<h4 class="modal-title" style="text-align:center; font-variant:small-caps;">delete your account</h4>
+<div class='user-action-form-container'>
+			@helper.form(action = routes.ApplicationController.removeUser){
+        @helper.inputText(
+        userForm("username"),
+        'class -> "username form-control",
+        'placeholder -> "your username",
+        '_label -> null,
+        '_error -> "<span style='color:#ff0000'>username required</span>",
+        '_showLabel -> false,
+        '_showConstraints -> false
+        )
+        @helper.inputPassword(
+        userForm("password"),
+        'class -> "password form-control",
+        'placeholder -> "your password",
+        '_label -> null,
+        '_error -> "<span style='color:#ff0000'>password required</span>",
+        '_showLabel -> false,
+        '_showConstraints -> false
+        )
+        <button onmouseover="javascript:js_inputButton(this)" class="btn btn-block" id="delete_button" type="submit">delete account</button>
+    }
+</div>
+  </div></div>
+}

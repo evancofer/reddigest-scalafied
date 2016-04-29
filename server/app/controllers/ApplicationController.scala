@@ -84,6 +84,9 @@ class ApplicationController extends Controller {
           formWithErrors => Future{Status(404)},
           //formWithErrors => Future{views.html.???(formWithErrors)}, //TODO Need a page for the user deletion before we can do this.
           data => {
+            if(data.name != data.name.trim){
+                Future{Redirect(routes.ApplicationController.index)} //TODO Make a page for when new user registration fails.
+            } else {
                 UserService.addUser(User(data.name, data.password)).map{
                    _ match {
                     case Some(user) => {
@@ -96,31 +99,41 @@ class ApplicationController extends Controller {
                     }
                   }
                 }
+            }
           }
         )
     }}
   
   
   def removeUser = Action.async { implicit request => {
+    request.session.get("user") match {
+      case None => Future{Status(404)}//TODO How does this even happen?
+      case Some(userName) => {
       Forms.userForm.bindFromRequest.fold(
           formWithErrors => Future{Status(404)},
           //formWithErrors => Future{views.html.???(formWithErrors)}, //TODO Need a page for the user deletion before we can do this.
           data => {
-              UserService.removeUser(User(data.name, data.password)).map{
-                 _ match {
-                  case None => {
-                    println("Deleting user: "+data.name)
-                    Redirect(routes.ApplicationController.index).withNewSession
-                  }
-                  case Some(user) => {
-                    println("Could not delete user: "+user.name)
-                    Status(404) //XXX Couldn't delete user.
+            if(userName != data.name){
+              Future{Redirect(routes.ApplicationController.userPage)}
+            } else {
+                UserService.removeUser(User(data.name, data.password)).map{
+                   _ match {
+                    case None => {
+                      println("Deleting user: "+data.name)
+                      Redirect(routes.ApplicationController.index).withNewSession
+                    }
+                    case Some(user) => {
+                      println("Could not delete user: "+user.name)
+                      Status(404) //XXX Couldn't delete user.
+                    }
                   }
                 }
-              }
+            }
           }
         )
-    }}
+      }
+    }
+  }}
   
   def userPage = Action.async {implicit request => {
       println("Loading user account page")
@@ -131,7 +144,7 @@ class ApplicationController extends Controller {
             _ match {
               case Some(user) => {
                 println("Found username while loading index:" + userName)
-                Ok(views.html.userpage()).withSession("user"->user.name)
+                Ok(views.html.userPage(Forms.userForm)).withSession("user"->user.name)
               }
               case None => {
                 println("No username found for" + userName)

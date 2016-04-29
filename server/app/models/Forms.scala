@@ -15,7 +15,7 @@ object Forms {
   //TODO: Change the password from nonEmptyText
 	val userForm = Form (
 		mapping(
-			"name"->nonEmptyText,
+			"username"->nonEmptyText,
 			"password"->nonEmptyText
 		)(user.User.apply)(user.User.unapply)
 	)

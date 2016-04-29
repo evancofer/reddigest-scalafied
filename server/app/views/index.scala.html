@@ -10,19 +10,74 @@
 
 
 @main("Login") {
- 	
+<script src="@routes.Assets.versioned("javascripts/scripts.js")" type="text/javascript"></script>
+<div class='container'>
+
+<div id="loginSpace" class="well well-lg">
+	<div class='jumbotron' style="text-align: center;">
+		<h1 style="font-variant:small-caps;">REDDIGEST<img src="http://i.imgur.com/QJ41dQb.png" style='width: 60px;height: 50px; padding-left: 10px; padding-bottom: 7px'></img><h1>
+		<p>a reddit viewer that filters out links you've already seen</p>
+	</div>
+
+
+<div class='user-action-form-container'>
     @helper.form(action = routes.ApplicationController.login){
-        @helper.inputText(userForm("name")),
-        @helper.inputText(userForm("password"))
-        <button type="submit">Login</button>
+        @helper.inputText(
+        userForm("username"),
+        'class -> "username form-control",
+        'placeholder -> "username",
+        '_label -> null,
+        '_error -> "<span style='color:#ff0000'>username required</span>",
+        '_showLabel -> false,
+        '_showConstraints -> false
+        )
+        @helper.inputPassword(
+        userForm("password"),
+        'class -> "password form-control",
+        'placeholder -> "password",
+        '_label -> null,
+        '_error -> "<span style='color:#ff0000'>password required</span>",
+        '_showLabel -> false,
+        '_showConstraints -> false
+        )
+        <button onmouseover="javascript:js_inputButton(this)" class="btn btn-block" type="login_button" type="submit">login</button>
     }
-    
-    
-    @helper.form(action = routes.ApplicationController.addUser){
-        @helper.inputText(userForm("name")),
-        @helper.inputText(userForm("password"))
-        <button type="submit">Register</button>
+</div>
+
+<div><a href="#register-modal" data-toggle="modal">New user? Register</a></div>
+</div>
+</div>
+					
+	 @* TODO: Verify user registration, and do a verify password field *@
+	
+	<div id="register-modal" class ="modal fade" role="dialog" style="display: none;" >
+		<div class="modal-dialog">
+		<div class="modal-content well well-lg">
+		<h4 class="modal-title" style="text-align:center; font-variant:small-caps;">create a new account</h4>
+		
+<div class='user-action-form-container'>
+		@helper.form(action = routes.ApplicationController.addUser){
+        @helper.inputText(
+        userForm("username"),
+        'class -> "username form-control",
+        'placeholder -> "choose a username",
+        '_label -> null,
+        '_error -> "<span style='color:#ff0000'>username required</span>",
+        '_showLabel -> false,
+        '_showConstraints -> false
+        )
+        @helper.inputPassword(
+        userForm("password"),
+        'class -> "password form-control",
+        'placeholder -> "password",
+        '_label -> null,
+        '_error -> "<span style='color:#ff0000'>password required</span>",
+        '_showLabel -> false,
+        '_showConstraints -> false
+        )
+        <button onmouseover="javascript:js_inputButton(this)" class="btn btn-block" id="register_button" type="submit">register</button>
     }
- 	
- 	
+</div>
+
+  </div></div></div>
 }
