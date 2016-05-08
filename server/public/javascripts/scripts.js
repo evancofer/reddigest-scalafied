@@ -1,9 +1,15 @@
-function js_inputButton(button){
-	console.log(button);
+
+function validate(){
+
+}
+
+function js_inputButton(buttonname){
+	console.log(buttonname);
+	var button = $(buttonname);
 	if ($("#username").val() && $('#password').val()){
-		button.className = "btn btn-block btn-success"
+		button.addClass("btn-success").removeClass("disabled");
 	} else {
-		button.className = "btn btn-block disabled"
+		button.addClass("disabled").removeClass("btn-success");
 	}
 }
 
