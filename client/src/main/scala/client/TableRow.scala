@@ -2,6 +2,7 @@ package client
 
 import org.scalajs.dom
 import org.scalajs.dom.html
+import org.scalajs.dom.raw.XMLHttpRequest
 import scala.scalajs.js
 import scala.scalajs.js.annotation.JSExport
 import scala.scalajs.js.JSApp
@@ -101,12 +102,23 @@ object TableRow {
   //val rows:Array[TableRow]
   
   def initialize():Unit = {
-    ???
+    val links = load(50)
+
   }
   
   
   def load(n:Int):Seq[Link] = {//TODO loads a new set of links from reddit that has n links in it?
-    ???
+  val url = "http://www.reddit.com/r/all.json"
+
+    for {
+      xhr <- Ajax.get(url)
+    } js.JSON.parse(xhr.responseText).list match{
+      case jsonobj: js.Array[js.Dynamic] =>
+        return jsonobj.map(j => parseLink(j))
+      case _ =>
+        return Seq[Link]()
+    }
+    return null
   }
   
   def load():Link = {
@@ -114,7 +126,26 @@ object TableRow {
     ???
   }
 
-  
+  def parseLink(data: js.Dynamic):Link = {
+    var article_link = data.url.asInstanceOf[String]
+    var article_title = data.title.asInstanceOf[String]
+    val article_site_name = data.domain.asInstanceOf[String]
+    val poster_name = data.author.asInstanceOf[String]
+    //val poster_link = "https://www.reddit.com/user/" + poster_name
+    val subreddit_name = "/r/" + data.subreddit.asInstanceOf[String]
+    //val subreddit_link = "https://www.reddit.com" + subreddit_name
+    val comment_count = data.num_comments.asInstanceOf[Int]
+    var comment_link = "https://www.reddit.com" + data.permalink.asInstanceOf[String]
+
+    if(article_title.asInstanceOf[String].length() > 165){
+      article_title = article_title.substring(0,160)
+      article_title +=  "...";
+    }
+    article_link = article_link.replace("\\/","/")
+    comment_link = comment_link.replace("\\/","/")
+    return Link(poster_name,LinkData(article_link,article_title,article_site_name,poster_name,subreddit_name,comment_count,comment_link))
+  }
+
   @JSExport
   def refreshRow(n:Int):Unit = {//TODO Make it so this can also take a javascript dynamic and cast to int!
     if(n < 0 || n >= 5){//rows.size instead of 5
