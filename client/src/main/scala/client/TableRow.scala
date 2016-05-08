@@ -1,31 +1,20 @@
 package client
 
-import org.scalajs.dom
-import org.scalajs.dom.html
-import org.scalajs.dom.raw.XMLHttpRequest
+import scala.concurrent.duration.Duration
 import scala.concurrent.{Future, Await}
 import scala.scalajs.js
-import scala.scalajs.js.annotation.JSExport
-import scala.scalajs.js.JSApp
-import scala.collection.mutable
-import scala.collection.mutable.MutableList
+import scala.collection.mutable.{ArrayBuffer, MutableList, ListBuffer}
 import scala.scalajs.js.annotation.JSExport
 import org.scalajs.dom
-import org.scalajs.dom.html
-import dom.html
-import dom.ext._
-import scala.scalajs.js.timers._
 import dom.ext.Ajax
-import scala.scalajs.js.JSON
-import upickle.default._
 import scala.concurrent.ExecutionContext.Implicits.global
-import scala.collection.mutable.ListBuffer
+import scala.util.{Failure, Success}
 
 class TableRow(private var link:Link, val rowNumber:Int){//change this eventually yo to html:HTMLTableRowElement
   //TODO on construction automatically add content to the DOM element.
   
   def refresh():Unit = {
-    link = TableRow.load()//TODO take the new link and do something with it.
+    //link = TableRow.load()//TODO take the new link and do something with it.
     //TODO re-render parts of the DOM that actually need changing.
   }
   
@@ -102,45 +91,62 @@ object TableRow {
   
   //TODO: Create the table in the dom with the rows, and pass the row references to new tablerows
   //val rows:Array[TableRow]
-  
+  val domTable = dom.document.getElementById("linkTableBody")
+  var links = ArrayBuffer[Link]()
+
   def initialize():Unit = {
-    load(50)
+     initialLoad(50)
   }
   
   
-  def load(n:Int):Seq[Link] = {//TODO loads a new set of links from reddit that has n links in it?
+  def initialLoad(n:Int):Unit = {//TODO loads a new set of links from reddit that has n links in it?
     val url = "http://www.reddit.com/r/all.json?limit="+n
-    var links = Seq[Link]()
+    var links = ArrayBuffer[Link]()
     Ajax.get(url).onSuccess {
       case xhr =>
         if(xhr.status == 200) {
           js.JSON.parse(xhr.responseText) match {
-              //Can't get Futures to play nice in ScalaJS for obvious reasons
-              //just gonna do it all in one thread here ayyy
+            //Can't get Futures to play nice in Scala.js
+            //just gonna do it all in one thread here ayyy
             case json: js.Dynamic =>
               links = parseLinks(json)
-              val domTable = dom.document.getElementById("linkTableBody")
               var j = 0
               for (link <- links) {
                 domTable.innerHTML = domTable.innerHTML + new TableRow(link, j).asHtml
                 j += 1
               }
-            case _ => println("Json list not found for url load request" + xhr.responseText)
+              println(links.length)
+              setLinks(links)
+            case _ => println("JSON not found for url load request" + xhr.responseText)
           }
         }
       case _ => println("Non-200 status code!")
     }
-    return links
-  }
-  
-  def load():Link = {
-    load(1).head //TODO not this
   }
 
-  def parseLinks(json: js.Dynamic):Seq[Link] = {
+  def setLinks(links: ArrayBuffer[Link]){
+    this.links = links
+  }
+
+  def loadNewLink(n: Int):Unit = {
+    val url = "http://www.reddit.com/r/all.json?limit="+1
+    val ajaxRes = Ajax.get(url).onSuccess {
+      case xhr =>
+        if(xhr.status == 200){
+          val json = js.JSON.parse(xhr.responseText)
+          links(n) = parseLinks(json)(0)
+          println("links n "+ links(n))
+          println("I think this is the right link: \n: "+domTable.children.item(n).innerHTML)
+
+          domTable.children.item(n).innerHTML = new TableRow(links(n),n).asHtml
+        }
+    }
+  }
+
+  def parseLinks(json: js.Dynamic):ArrayBuffer[Link] = {
     val dataObj = json.data
     val links = dataObj.children.asInstanceOf[js.Array[js.Dynamic]]
-    var retLinks = new ListBuffer[Link]()
+    var retLinks = new ArrayBuffer[Link]
     for(link <- links) {
       val data = link.data
       var article_link = data.url.asInstanceOf[String]
@@ -161,16 +167,23 @@ object TableRow {
       comment_link = comment_link.replace("\\/", "/")
       retLinks += Link(poster_name, LinkData(article_link, article_title, article_site_name, poster_name, subreddit_name, comment_count, comment_link))
     }
-    retLinks.toSeq
+    retLinks
   }
 
   @JSExport
-  def refreshRow(n:Int):Unit = {//TODO Make it so this can also take a javascript dynamic and cast to int!
-    if(n < 0 || n >= 5){//rows.size instead of 5
-      return 
+  def refreshRow(dyn: js.Dynamic):Unit = {//TODO Make it so this can also take a javascript dynamic and cast to int!
+    println("hello")
+    val n = dyn.asInstanceOf[Int]
+    //println(n)
+    println("beg links size "+links.size)
+    if(n < 0 || n >= links.size){
+      //rows.size instead of 5
+      println("n too big!")
+      return
     } else {
-      //this.rows(n).refresh()
+      loadNewLink(n)
     }
+    println("end links size"+links.size)
   }
   
 }
