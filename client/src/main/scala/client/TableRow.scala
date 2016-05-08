@@ -3,6 +3,7 @@ package client
 import org.scalajs.dom
 import org.scalajs.dom.html
 import org.scalajs.dom.raw.XMLHttpRequest
+import scala.concurrent.{Future, Await}
 import scala.scalajs.js
 import scala.scalajs.js.annotation.JSExport
 import scala.scalajs.js.JSApp
@@ -67,15 +68,15 @@ class TableRow(private var link:Link, val rowNumber:Int){//change this eventuall
   def asHtml:String = {
     """<tr><td>"""+{
          """<div class="col-md-12">"""+{
-           //"""div id="sub_row" class="row">"""+{
+           """<div id="sub_row" class="row">"""+{
              """<div class="col-sm-12"  style="font-size: 16px; vertical-align: middle;">"""+{
                """<a id="link_seen_button" href="javascript:client.TableRow().refreshRow("""+rowNumber+""")">"""+{
-                 """&nbsp;<span class="glyphicon glyphicon-remove-sign" style="color: white;"></span>&nbsp;"""
+                 """&nbsp;<span class="glyphicon glyphicon-remove-sign" style="color: orange;"></span>&nbsp;"""
                  }+"""</a>"""+{
                    """<a id="the_link" href=""""+this.articleLink+"""">"""+this.articleTitle+"""</a>"""+"""&nbsp;<a href=http://""""+this.articleSiteName+"""" style="font-size: 12px;">["""+this.articleSiteName+"""]</a>""" 
                  }
              }+"""</div>"""
-           //}+"""</div>"""
+           }+"""</div>"""
          }+"""</div>"""+"""<div class="row">"""+{
             """<div class="col-sm-12 col-xs-offset-1">"""+{
                   """by """+{
@@ -103,37 +104,27 @@ object TableRow {
   //val rows:Array[TableRow]
   
   def initialize():Unit = {
-    println("init...")
     load(50)
-    //println(links)
   }
   
   
   def load(n:Int):Seq[Link] = {//TODO loads a new set of links from reddit that has n links in it?
     val url = "http://www.reddit.com/r/all.json?limit="+n
     var links = Seq[Link]()
-    println("loading links...")
     Ajax.get(url).onSuccess {
       case xhr =>
         if(xhr.status == 200) {
           js.JSON.parse(xhr.responseText) match {
-              //Can't get return methods to wait for AJAX to finish. ScalaJS bug!!!
-              //This means we have to do the HTML addition here...which is bad news bears.
-            case json: js.Dynamic => {
-              //println("parsed json as list")
-              //println(js.JSON.parse(xhr.responseText))
+              //Can't get Futures to play nice in ScalaJS for obvious reasons
+              //just gonna do it all in one thread here ayyy
+            case json: js.Dynamic =>
               links = parseLinks(json)
-              println("done parsing links")
-              println(links)
-              println(links.head.data.url)
-              val domTable = dom.document.getElementById("linkTable")
+              val domTable = dom.document.getElementById("linkTableBody")
               var j = 0
-              for(link <- links){
-                println(domTable.innerHTML)
-                domTable.innerHTML = domTable.innerHTML + new TableRow(link,j).asHtml
-                j+=1
+              for (link <- links) {
+                domTable.innerHTML = domTable.innerHTML + new TableRow(link, j).asHtml
+                j += 1
               }
-            }
             case _ => println("Json list not found for url load request" + xhr.responseText)
           }
         }
@@ -147,11 +138,8 @@ object TableRow {
   }
 
   def parseLinks(json: js.Dynamic):Seq[Link] = {
-    println("parsing links...")
     val dataObj = json.data
-    //println(dataObj)
     val links = dataObj.children.asInstanceOf[js.Array[js.Dynamic]]
-    //println(links)
     var retLinks = new ListBuffer[Link]()
     for(link <- links) {
       val data = link.data
