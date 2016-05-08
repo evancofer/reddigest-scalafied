@@ -18,6 +18,7 @@ import dom.ext.Ajax
 import scala.scalajs.js.JSON
 import upickle.default._
 import scala.concurrent.ExecutionContext.Implicits.global
+import scala.collection.mutable.ListBuffer
 
 class TableRow(private var link:Link, val rowNumber:Int, private val html:String){//change this eventually yo to html:HTMLTableRowElement
   //TODO on construction automatically add content to the DOM element.
@@ -102,48 +103,66 @@ object TableRow {
   //val rows:Array[TableRow]
   
   def initialize():Unit = {
+    println("init...")
     val links = load(50)
-
+    dom.getClass
+    //println(links)
   }
   
   
   def load(n:Int):Seq[Link] = {//TODO loads a new set of links from reddit that has n links in it?
-  val url = "http://www.reddit.com/r/all.json"
-
-    for {
-      xhr <- Ajax.get(url)
-    } js.JSON.parse(xhr.responseText).list match{
-      case jsonobj: js.Array[js.Dynamic] =>
-        return jsonobj.map(j => parseLink(j))
-      case _ =>
-        return Seq[Link]()
+    val url = "http://www.reddit.com/r/all.json?limit="+n
+    println("loading links...")
+    Ajax.get(url).onSuccess {
+      case xhr =>
+        if(xhr.status == 200) {
+          js.JSON.parse(xhr.responseText) match {
+            case json: js.Dynamic => {
+              println("parsed json as list")
+              //println(js.JSON.parse(xhr.responseText))
+              return parseLinks(json)
+            }
+            case _ => println("Json list not found for url load request" + xhr.responseText)
+          }
+        }
+      case _ => println("Non-200 status code!")
     }
     return null
   }
   
   def load():Link = {
-    //Just loads a single link.
-    ???
+    load(1).head //TODO not this
   }
 
-  def parseLink(data: js.Dynamic):Link = {
-    var article_link = data.url.asInstanceOf[String]
-    var article_title = data.title.asInstanceOf[String]
-    val article_site_name = data.domain.asInstanceOf[String]
-    val poster_name = data.author.asInstanceOf[String]
-    //val poster_link = "https://www.reddit.com/user/" + poster_name
-    val subreddit_name = "/r/" + data.subreddit.asInstanceOf[String]
-    //val subreddit_link = "https://www.reddit.com" + subreddit_name
-    val comment_count = data.num_comments.asInstanceOf[Int]
-    var comment_link = "https://www.reddit.com" + data.permalink.asInstanceOf[String]
+  def parseLinks(json: js.Dynamic):Seq[Link] = {
+    println("parsing links...")
+    val dataObj = json.data
+    //println(dataObj)
+    val links = dataObj.children.asInstanceOf[js.Array[js.Dynamic]]
+    //println(links)
+    var retLinks = new ListBuffer[Link]()
+    for(link <- links) {
+      val data = link.data
+      //println(data.url.toString)
+      var article_link = data.url.asInstanceOf[String]
+      var article_title = data.title.asInstanceOf[String]
+      val article_site_name = data.domain.asInstanceOf[String]
+      val poster_name = data.author.asInstanceOf[String]
+      //val poster_link = "https://www.reddit.com/user/" + poster_name
+      val subreddit_name = "/r/" + data.subreddit.asInstanceOf[String]
+      //val subreddit_link = "https://www.reddit.com" + subreddit_name
+      val comment_count = data.num_comments.asInstanceOf[Int]
+      var comment_link = "https://www.reddit.com" + data.permalink.asInstanceOf[String]
 
-    if(article_title.asInstanceOf[String].length() > 165){
-      article_title = article_title.substring(0,160)
-      article_title +=  "...";
+      if (article_title.length() > 165) {
+        article_title = article_title.substring(0, 160)
+        article_title += "..."
+      }
+      article_link = article_link.replace("\\/", "/")
+      comment_link = comment_link.replace("\\/", "/")
+      retLinks += Link(poster_name, LinkData(article_link, article_title, article_site_name, poster_name, subreddit_name, comment_count, comment_link))
     }
-    article_link = article_link.replace("\\/","/")
-    comment_link = comment_link.replace("\\/","/")
-    return Link(poster_name,LinkData(article_link,article_title,article_site_name,poster_name,subreddit_name,comment_count,comment_link))
+    retLinks.toSeq
   }
 
   @JSExport
