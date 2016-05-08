@@ -20,7 +20,7 @@ import upickle.default._
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.collection.mutable.ListBuffer
 
-class TableRow(private var link:Link, val rowNumber:Int, private val html:String){//change this eventually yo to html:HTMLTableRowElement
+class TableRow(private var link:Link, val rowNumber:Int){//change this eventually yo to html:HTMLTableRowElement
   //TODO on construction automatically add content to the DOM element.
   
   def refresh():Unit = {
@@ -65,9 +65,9 @@ class TableRow(private var link:Link, val rowNumber:Int, private val html:String
   }
   
   def asHtml:String = {
-//    """<tr>"""+{
+    """<tr><td>"""+{
          """<div class="col-md-12">"""+{
-           """div id="sub_row" class="row">"""+{
+           //"""div id="sub_row" class="row">"""+{
              """<div class="col-sm-12"  style="font-size: 16px; vertical-align: middle;">"""+{
                """<a id="link_seen_button" href="javascript:client.TableRow().refreshRow("""+rowNumber+""")">"""+{
                  """&nbsp;<span class="glyphicon glyphicon-remove-sign" style="color: white;"></span>&nbsp;"""
@@ -75,7 +75,7 @@ class TableRow(private var link:Link, val rowNumber:Int, private val html:String
                    """<a id="the_link" href=""""+this.articleLink+"""">"""+this.articleTitle+"""</a>"""+"""&nbsp;<a href=http://""""+this.articleSiteName+"""" style="font-size: 12px;">["""+this.articleSiteName+"""]</a>""" 
                  }
              }+"""</div>"""
-           }+"""</div>"""
+           //}+"""</div>"""
          }+"""</div>"""+"""<div class="row">"""+{
             """<div class="col-sm-12 col-xs-offset-1">"""+{
                   """by """+{
@@ -87,7 +87,7 @@ class TableRow(private var link:Link, val rowNumber:Int, private val html:String
                   }
             }+"""</div>""" 
           }+"""</div>"""
-//    }+"""</tr>"""
+    }+"""</td></tr>"""
   }
 }
 
@@ -104,30 +104,42 @@ object TableRow {
   
   def initialize():Unit = {
     println("init...")
-    val links = load(50)
-    dom.getClass
+    load(50)
     //println(links)
   }
   
   
   def load(n:Int):Seq[Link] = {//TODO loads a new set of links from reddit that has n links in it?
     val url = "http://www.reddit.com/r/all.json?limit="+n
+    var links = Seq[Link]()
     println("loading links...")
     Ajax.get(url).onSuccess {
       case xhr =>
         if(xhr.status == 200) {
           js.JSON.parse(xhr.responseText) match {
+              //Can't get return methods to wait for AJAX to finish. ScalaJS bug!!!
+              //This means we have to do the HTML addition here...which is bad news bears.
             case json: js.Dynamic => {
-              println("parsed json as list")
+              //println("parsed json as list")
               //println(js.JSON.parse(xhr.responseText))
-              return parseLinks(json)
+              links = parseLinks(json)
+              println("done parsing links")
+              println(links)
+              println(links.head.data.url)
+              val domTable = dom.document.getElementById("linkTable")
+              var j = 0
+              for(link <- links){
+                println(domTable.innerHTML)
+                domTable.innerHTML = domTable.innerHTML + new TableRow(link,j).asHtml
+                j+=1
+              }
             }
             case _ => println("Json list not found for url load request" + xhr.responseText)
           }
         }
       case _ => println("Non-200 status code!")
     }
-    return null
+    return links
   }
   
   def load():Link = {
@@ -143,16 +155,15 @@ object TableRow {
     var retLinks = new ListBuffer[Link]()
     for(link <- links) {
       val data = link.data
-      //println(data.url.toString)
       var article_link = data.url.asInstanceOf[String]
       var article_title = data.title.asInstanceOf[String]
       val article_site_name = data.domain.asInstanceOf[String]
       val poster_name = data.author.asInstanceOf[String]
       //val poster_link = "https://www.reddit.com/user/" + poster_name
-      val subreddit_name = "/r/" + data.subreddit.asInstanceOf[String]
+      val subreddit_name = data.subreddit.asInstanceOf[String]
       //val subreddit_link = "https://www.reddit.com" + subreddit_name
       val comment_count = data.num_comments.asInstanceOf[Int]
-      var comment_link = "https://www.reddit.com" + data.permalink.asInstanceOf[String]
+      var comment_link = data.permalink.asInstanceOf[String]
 
       if (article_title.length() > 165) {
         article_title = article_title.substring(0, 160)
