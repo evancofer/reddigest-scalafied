@@ -23,6 +23,6 @@ object UserService {
   }
   
   def getUserByName(userName: String):Future[Option[User]] = {
-      ???
+    Users.getUserByName(userName)
   }
 }
