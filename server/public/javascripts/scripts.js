@@ -4,13 +4,34 @@ function validate(){
 }
 
 function js_inputButton(buttonname){
-	console.log(buttonname);
-	var button = $(buttonname);
-	if ($("#username").val() && $('#password').val()){
-		button.addClass("btn-success").removeClass("disabled");
+	
+	//console.log(document.getElementById("registerbutton").parent)
+	//$('#registerbutton').parent().children().find('#username').val();
+	
+	
+	//var registerButton = document.getElementById("registerButton");
+	
+	//var loginButton = document.getElementById("loginButton");
+	
+	
+	//console.log(buttonname);
+	//var button = $(buttonname).closest(".btn");
+
+	
+	if ( $('#registerbutton').parent().children().find('#username').val() && $('#registerbutton').parent().children().find('#password').val()){
+		$('#registerbutton').addClass("btn-success").removeClass("disabled");
 	} else {
-		button.addClass("disabled").removeClass("btn-success");
+		$('#registerbutton').addClass("disabled").removeClass("btn-success");
 	}
+	
+	if ( $('#loginbutton').parent().children().find('#username').val() && $('#loginbutton').parent().children().find('#password').val()){
+		$('#loginbutton').addClass("btn-success").removeClass("disabled");
+	} else {
+		$('#loginbutton').addClass("disabled").removeClass("btn-success");
+	}
+	
+	
+	
 }
 
 function js_register(){

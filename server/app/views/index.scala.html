@@ -26,7 +26,7 @@
             userForm("username"),
             'class -> "username form-control",
             'placeholder -> "username",
-            'onkeyup -> "javascript:js_inputButton('#loginbutton')",
+            'onkeyup -> "javascript:js_inputButton(this)",
             '_label -> null,
             '_error -> "<span style='color:#ff0000'>username required</span>",
             '_showLabel -> false,
@@ -36,13 +36,13 @@
             userForm("password"),
             'class -> "password form-control",
             'placeholder -> "password",
-            'onkeyup -> "javascript:js_inputButton('#loginbutton')",
+            'onkeyup -> "javascript:js_inputButton(this)",
             '_label -> null,
             '_error -> "<span style='color:#ff0000'>password required</span>",
             '_showLabel -> false,
             '_showConstraints -> false
         )
-        <button onmouseover="javascript:js_inputButton('#loginbutton')" class="btn btn-block" type="login_button" type="submit" id="loginbutton">login</button>
+        <button onmouseover="javascript:js_inputButton(this)" class="btn btn-block" type="login_button" type="submit" id="loginbutton">login</button>
     }
 </div>
 
@@ -63,7 +63,7 @@
         userForm("username"),
         'class -> "username form-control",
         'placeholder -> "choose a username",
-        'onkeyup -> "javascript:js_inputButton('#registerbutton')",
+        'onkeyup -> "javascript:js_inputButton(this)",
         '_label -> null,
         '_error -> "<span style='color:#ff0000'>username required</span>",
         '_showLabel -> false,
@@ -73,7 +73,7 @@
         userForm("password"),
         'class -> "password form-control",
         'placeholder -> "password",
-        'onkeyup -> "javascript:js_inputButton('#registerbutton')",
+        'onkeyup -> "javascript:js_inputButton(this)",
         '_label -> null,
         '_error -> "<span style='color:#ff0000'>password required</span>",
         '_showLabel -> false,
