@@ -1,6 +1,9 @@
 package client
 
+import org.scalajs.dom.html.Html
+
 import scala.collection.mutable
+import scala.concurrent.Await
 import scala.concurrent.duration.Duration
 import scala.scalajs.js
 import scala.collection.mutable.{ArrayBuffer}
@@ -10,7 +13,10 @@ import dom.ext.Ajax
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.util.Success
 
-class TableRow(private var link: Link, val rowNumber: Int) {
+class TableRow(private var link: Link, val rowNumber: Int, val hidden: Boolean) {
+
+  def this(link: Link, row: Int) = this(link, row, false)
+
   //change this eventually yo to html:HTMLTableRowElement
   //TODO on construction automatically add content to the DOM element.
 
@@ -56,7 +62,14 @@ class TableRow(private var link: Link, val rowNumber: Int) {
   }
 
   def asHtml: String = {
-    """<tr><td>""" + {
+    var row = ""
+    if (hidden) {
+      row = """<tr style="display: none;"><td>"""
+    }
+    else {
+      row = """<tr style=""><td>"""
+    }
+    row + {
       """<div class="col-md-12">""" + {
         """<div id="sub_row" class="row">""" + {
           """<div class="col-sm-12"  style="font-size: 16px; vertical-align: middle;">""" + {
@@ -108,8 +121,10 @@ object TableRow {
 
   private var after: js.Dynamic = null
 
+  //private var linkQueue =  new mutable.Queue[Link]()
+
   def initialize(): Unit = {
-    initialLoad(50)
+    initialLoad(25)
   }
 
   def filterReposts(): Unit = {
@@ -126,14 +141,23 @@ object TableRow {
           js.JSON.parse(xhr.responseText) match {
             case json: js.Array[js.Dynamic] => {
               var j = 0
-              println(json)
+              var k = 0
+              val bools = Array.fill[Boolean](json.length)(true)
               for (result <- json) {
                 if (result.asInstanceOf[Boolean]) {
-                  loadNewLink(j)
+                  println(links(j).data.title + " is a repost")
+                  bools(j) = false
+                  k += 1
                 }
                 j += 1
               }
-              renderLinks()
+              if(j-k == 1){
+                domTable.innerHTML = ""
+                initialLoad(24)
+              }
+              else {
+                renderLinks(bools)
+              }
             }
             case _ => println("Non-singular JSON object found! " + xhr.responseType)
           }
@@ -152,23 +176,25 @@ object TableRow {
     return serString
   }
 
-  def renderLinks(): Unit = {
+  def renderLinks(bools: Array[Boolean]): Unit = {
     var j = 0
     for (link <- links) {
-      domTable.innerHTML = domTable.innerHTML + new TableRow(link, j).asHtml
+      if (bools(j)) {
+        domTable.innerHTML = domTable.innerHTML + new TableRow(link, j).asHtml
+      }
+      else {
+        domTable.innerHTML = domTable.innerHTML + new TableRow(link, j,true).asHtml
+      }
       j += 1
     }
-    println(links.length)
   }
 
   def setLinks(links: ArrayBuffer[Link]) {
-    this.links = links
+    this.links.appendAll(links)
   }
 
   def initialLoad(n: Int): Unit = {
-    //TODO loads a new set of links from reddit that has n links in it?
-    val url = "http://www.reddit.com/r/all.json?limit=" + n
-    var links = ArrayBuffer[Link]()
+    val url = "http://www.reddit.com/r/all.json?limit=" + n + "&after=" + after
     Ajax.get(url).onSuccess {
       case xhr =>
         if (xhr.status == 200) {
@@ -188,29 +214,31 @@ object TableRow {
   }
 
   def loadNewLink(n: Int): Unit = {
-    //val url = "http://www.reddit.com/r/all.json?limit=" + 1 + "&after=" + after
-    val url = "https://www.reddit.com/r/all/new.json?limit=1"
+    println("before after " + after)
+    val url = "http://www.reddit.com/r/all.json?limit=" + 1 + "&after=" + after
+    after = null
     Ajax.get(url).onSuccess {
       case xhr =>
         if (xhr.status == 200) {
           val json = js.JSON.parse(xhr.responseText)
           after = json.data.after
+          println("after after " + after)
           val link = parseLink(json)
-          //println("pre-hello!"+serializeLink(links(n)))
-          Ajax.post("/getLink", serializeLink(links(n))).onSuccess {
+          println("pre-hello!" + link.data.title)
+          Ajax.post("/getLink", serializeLink(link)).onSuccess {
             case xhr =>
               val flag = js.JSON.parse(xhr.responseText).asInstanceOf[Boolean]
-              if (flag) {
-                println("in the flag")
-                links(n) = link
-                domTable.children.item(n).innerHTML = new TableRow(link, n).asHtml
-                val addUrl = "/addLink"
+              if (!flag) {
+                domTable.children.item(n).setAttribute("style","display: none;") // = new TableRow(link,n,true).asHtml
+                links.append(link)
+                domTable.innerHTML = domTable.innerHTML + new TableRow(link, links.length-1).asHtml
+                //val addUrl = "/addLink"
                 //println(serializeLink(link))
-                Ajax.post(addUrl, serializeLink(link))
+                //Ajax.post(addUrl, serializeLink(link))
               }
               else {
-                println("GRRR")
-                links.remove(n)
+                println("refreshed link was also found in database")
+                loadNewLink(n)
               }
           }
         }
