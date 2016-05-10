@@ -19,3 +19,4 @@ permalink VARCHAR(4000) NOT NULL
 );
 
 INSERT INTO user (name, password) VALUES ('test', 'test');
+INSERT INTO link (userName, url, title, domain, author, subreddit, num_comments, permalink) VALUES ('user', 'dank memez', 'hi daniel', 'hi daniel', 'hi daniel', 'di haniel', 5, 'yo');
