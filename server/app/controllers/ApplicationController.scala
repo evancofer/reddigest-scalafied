@@ -191,8 +191,8 @@ class ApplicationController extends Controller {
             val linkData = new LinkData(results(0), results(1), results(2), results(3), results(4), results(5).toInt, results(6))
             LinkService.getLink(Link(userName, linkData.url, linkData.title, linkData.domain, linkData.author, linkData.subreddit, linkData.num_comments, linkData.permalink)).map(
               _ match {
-                case Some(link) => Ok(JsBoolean(false)) //Link found in DB.
-                case None => Ok(JsBoolean(true)) //Link not found in DB.
+                case Some(link) => Ok(JsBoolean(true)) //Link found in DB.
+                case None => Ok(JsBoolean(false)) //Link not found in DB.
               }
             )
           }
@@ -222,7 +222,6 @@ class ApplicationController extends Controller {
               linkList += new LinkData(results(0), results(1), results(2), results(3), results(4), results(5).toInt, results(6))
             }
             val linkDataList = linkList.toSeq
-            println("we're in, captain!")
             Future {
               Ok(//TODO: Do we need to call json.stringify on this?
                 {
