@@ -6,7 +6,7 @@
 @import play.api.i18n._
 @import play.api.mvc._
 
-@(userForm: Form[models.user.User], extra_scripts: Html=Html(""))(implicit request: RequestHeader)
+@(userForm: Form[models.user.User], message: Html=Html(""))(implicit request: RequestHeader)
 
 
 @main("Login") {
@@ -45,7 +45,9 @@
         <button onmouseover="javascript:js_inputButton(this)" class="btn btn-block" type="login_button" type="submit" id="loginbutton">login</button>
     }
 </div>
-
+<div>
+@message
+</div>
 <div><a href="#register-modal" data-toggle="modal">New user? Register</a></div>
 </div>
 </div>
