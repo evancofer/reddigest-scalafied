@@ -14,6 +14,7 @@ import scala.concurrent.Await
 import play.api.data.validation.ValidationError
 import play.api.libs.json._
 import play.api.libs.json.JsBoolean
+import play.twirl.api.Html
 
 import services.UserService
 import services.LinkService
@@ -43,7 +44,7 @@ class ApplicationController extends Controller {
             }
             case None => {
               println("No username found for" + userName)
-              Ok(views.html.index(Forms.userForm)) //TODO What is done if user is set in request but not found???
+              Ok(views.html.index(Forms.userForm, Html("<div class='alert alert-danger'>Username and password do not match</div>")))
             }
           }
         }
@@ -76,7 +77,7 @@ class ApplicationController extends Controller {
             }
             case None => {
               println("Failed login attempt for: " + data.name)
-              Redirect(routes.ApplicationController.index) //TODO: How to handle failed user login?
+              Ok(views.html.index(Forms.userForm, Html("<br><div class='alert alert-danger'>Username/password do not match<a class='close' data-dismiss='alert' aria-label='close'>&times;</a></div>")))
             }
           }
         }

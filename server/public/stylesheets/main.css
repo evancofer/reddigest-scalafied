@@ -23,8 +23,12 @@ span{
 	font-size: 14pt;
 }
 
+div{
+    color: #ffa600;
+}
+
 a:link {
-	color: #595959;
+	color: #cccccc;
 	text-decoration: none;
 }
 
