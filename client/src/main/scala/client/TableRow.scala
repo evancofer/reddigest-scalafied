@@ -121,10 +121,12 @@ object TableRow {
 
   private var after: js.Dynamic = null
 
+  private val numLinks = 25
+
   //private var linkQueue =  new mutable.Queue[Link]()
 
   def initialize(): Unit = {
-    initialLoad(25)
+    initialLoad(numLinks)
   }
 
   def filterReposts(): Unit = {
@@ -153,7 +155,7 @@ object TableRow {
               }
               if(j-k == 1){
                 domTable.innerHTML = ""
-                initialLoad(24)
+                initialLoad(numLinks-1)
               }
               else {
                 renderLinks(bools)
