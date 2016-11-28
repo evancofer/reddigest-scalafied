@@ -1,1 +1,0 @@
-Reddigest is an application that allows Reddit users to never see the same links twice. It was written primarily using the Play Framework and Scala.js, with a tad of javascript. If you would like to fork Reddigest, please let us know. See https://github.com/tinathefatwhale/reddigest for the original version in JavaScript/PHP
